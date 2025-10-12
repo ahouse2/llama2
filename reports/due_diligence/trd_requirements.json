@@ -1,0 +1,224 @@
+{
+  "id": "TRD",
+  "title": "Automated Legal Discovery Platform TRD",
+  "description": "Hierarchical decomposition of functional requirements extracted from the product requirements plan (PRP).",
+  "children": [
+    {
+      "id": "ARCH",
+      "title": "Architecture & Platform Governance",
+      "description": "Foundational technical architecture, repository structure, and security governance expectations.",
+      "children": [
+        {
+          "id": "ARCH-READ",
+          "title": "Authoritative architecture documentation",
+          "description": "Maintain accurate documentation that reflects the actual system topology, data flows, and component responsibilities to satisfy TRD transparency requirements.",
+          "keywords": ["architecture", "docs"]
+        },
+        {
+          "id": "ARCH-REPO",
+          "title": "Canonical monorepo layout",
+          "description": "Provide the prescribed `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, and `/tests` structure with active code in each area as mandated by the PRP.",
+          "keywords": ["apps/backend", "apps/frontend"]
+        },
+        {
+          "id": "ARCH-DEVENV",
+          "title": "Reproducible developer environment",
+          "description": "Ship devcontainers or equivalent environment automation plus language-specific dependency locks for backend and frontend stacks.",
+          "keywords": ["devcontainer", "poetry.lock", "pnpm-lock"]
+        },
+        {
+          "id": "ARCH-SECOPS",
+          "title": "Security and governance baseline",
+          "description": "Define threat models, access controls, and compliance guardrails including audit trail strategy before feature delivery.",
+          "keywords": ["threat", "security", "audit"]
+        }
+      ]
+    },
+    {
+      "id": "DATA",
+      "title": "Data Pipeline & Knowledge Fabric",
+      "description": "Ingestion, enrichment, indexing, and graph construction workflows powering retrieval-augmented intelligence.",
+      "children": [
+        {
+          "id": "DATA-INGEST",
+          "title": "Document ingestion orchestrator",
+          "description": "Asynchronous ingestion service handling uploads, folder sync, and API triggers with reliability controls.",
+          "keywords": ["ingest", "pipeline"]
+        },
+        {
+          "id": "DATA-OCR",
+          "title": "OCR and multimodal transcription",
+          "description": "Vision-LLM or OCR microservice converting scanned material into machine-readable text with QA heuristics.",
+          "keywords": ["ocr", "vision"]
+        },
+        {
+          "id": "DATA-PARSE",
+          "title": "LLM-driven parsing & classification",
+          "description": "Metadata extraction, entity tagging, and privilege risk scoring using language models per TRD workflow diagrams.",
+          "keywords": ["parser", "classification"]
+        },
+        {
+          "id": "DATA-EMBED",
+          "title": "Embedding & vector indexing",
+          "description": "Vector store population (Qdrant/Pinecone) with hybrid retrieval configuration and persistence management.",
+          "keywords": ["qdrant", "vector", "embedding"]
+        },
+        {
+          "id": "DATA-GRAPH",
+          "title": "Knowledge graph construction",
+          "description": "Graph extraction pipeline writing triples to Neo4j/Memgraph and exposing Cypher/GraphQL interfaces.",
+          "keywords": ["graph", "neo4j"]
+        },
+        {
+          "id": "DATA-TIMELINE",
+          "title": "Event timeline synthesis",
+          "description": "Automated timeline builder aligning events, citations, and contradictions with exportable visualizations.",
+          "keywords": ["timeline"]
+        }
+      ]
+    },
+    {
+      "id": "AGENT",
+      "title": "Agent Orchestration & Automation",
+      "description": "Coordinated network of specialized agents delivering casework, research, and self-improvement capabilities.",
+      "children": [
+        {
+          "id": "AGENT-NET",
+          "title": "Autogen-style multi-agent network",
+          "description": "Configured roster of coordinating, legal research, timeline, and tooling agents with explicit policies and memory.",
+          "keywords": ["agent", "autogen"]
+        },
+        {
+          "id": "AGENT-COCOUNSEL",
+          "title": "Voice-enabled co-counsel agent",
+          "description": "Primary persona delivering empathetic voice/text assistance with tool orchestration and citation discipline.",
+          "keywords": ["voice", "speech", "cocounsel"]
+        },
+        {
+          "id": "AGENT-DEV",
+          "title": "Self-improving developer agent",
+          "description": "Agent that drafts patches, runs evaluations, and ships approved updates through automated workflows.",
+          "keywords": ["dev_agent", "patch"]
+        },
+        {
+          "id": "AGENT-EVAL",
+          "title": "Agentic evaluation harness",
+          "description": "Automated assessments verifying delegation, grounding, and regression behavior for agent swarms.",
+          "keywords": ["evaluation", "harness"]
+        }
+      ]
+    },
+    {
+      "id": "UX",
+      "title": "Experience Layer & Differentiators",
+      "description": "User-facing applications including chat, document exploration, trial preparation, and educational modules.",
+      "children": [
+        {
+          "id": "UX-CHAT",
+          "title": "Neon chat console with citations",
+          "description": "Real-time chat UI surfacing inline citations that open contextual snippets per TRD UX guidelines.",
+          "keywords": ["chat", "frontend"]
+        },
+        {
+          "id": "UX-DOCS",
+          "title": "Integrated document viewer",
+          "description": "Embedded viewer supporting uploads, highlights, and synchronized citation jumps.",
+          "keywords": ["viewer", "document"]
+        },
+        {
+          "id": "UX-TIMELINE",
+          "title": "Interactive timeline UI",
+          "description": "Scrollable/zoomable timeline with category filters, pop-out event cards, and evidence links.",
+          "keywords": ["timeline", "ui"]
+        },
+        {
+          "id": "UX-VOICE",
+          "title": "Voice I/O controls",
+          "description": "Microphone capture, wake word detection, speech synthesis, and playback management integrated into the client.",
+          "keywords": ["voice", "webrtc"]
+        },
+        {
+          "id": "UX-SIM",
+          "title": "Mock courtroom simulator",
+          "description": "Animated simulation environment with judge, opposing counsel, and witness personas for practice sessions.",
+          "keywords": ["simulator", "court"]
+        },
+        {
+          "id": "UX-KNOWLEDGE",
+          "title": "Trial University knowledge hub",
+          "description": "Educational library and retrieval interface for case law, procedural guides, and adaptive lessons.",
+          "keywords": ["knowledge", "university"]
+        }
+      ]
+    },
+    {
+      "id": "OPS",
+      "title": "Operational Excellence & Compliance",
+      "description": "Deployment automation, observability, testing, and security certifications supporting enterprise readiness.",
+      "children": [
+        {
+          "id": "OPS-CI",
+          "title": "Continuous integration & delivery",
+          "description": "Automated pipelines covering build, lint, test, and deployment promotions with artifact provenance.",
+          "keywords": ["ci", "pipeline"]
+        },
+        {
+          "id": "OPS-OBS",
+          "title": "Observability & SLO management",
+          "description": "Tracing, metrics, logging, and alerting aligned to ingestion latency, retrieval accuracy, and agent responsiveness.",
+          "keywords": ["observability", "telemetry"]
+        },
+        {
+          "id": "OPS-SEC",
+          "title": "Security, privacy, and compliance",
+          "description": "Zero-trust controls, tenant isolation, audit logging, and readiness for SOC2/HIPAA/GDPR audits.",
+          "keywords": ["compliance", "soc2"]
+        },
+        {
+          "id": "OPS-TEST",
+          "title": "Automated testing portfolio",
+          "description": "Unit, integration, load, and chaos testing harnesses achieving coverage thresholds defined by the TRD.",
+          "keywords": ["test", "coverage"]
+        }
+      ]
+    },
+    {
+      "id": "BIZ",
+      "title": "Monetization & Market Strategy",
+      "description": "Commercial packaging, pricing, and sales enablement deliverables required for premium positioning.",
+      "children": [
+        {
+          "id": "BIZ-PRICING",
+          "title": "$1k/mo pricing justification",
+          "description": "ROI models, packaging of premium differentiators, and readiness to defend value-based pricing.",
+          "keywords": ["pricing", "roi"]
+        },
+        {
+          "id": "BIZ-GTM",
+          "title": "Go-to-market enablement",
+          "description": "Sales demos, collateral, and pilot programs to onboard anchor firms and capture testimonials.",
+          "keywords": ["gtm", "sales"]
+        }
+      ]
+    },
+    {
+      "id": "INNOV",
+      "title": "Continuous Innovation",
+      "description": "Long-term differentiators including reinforcement learning loops and ecosystem expansion.",
+      "children": [
+        {
+          "id": "INNOV-RL",
+          "title": "Reinforcement learning feedback loop",
+          "description": "Collect attorney feedback, train reward models, and ship controlled RLHF updates.",
+          "keywords": ["rlhf", "feedback"]
+        },
+        {
+          "id": "INNOV-MARKETPLACE",
+          "title": "Plugin marketplace",
+          "description": "Ecosystem for certified plugins, SDK contracts, and partner revenue sharing.",
+          "keywords": ["marketplace", "plugin"]
+        }
+      ]
+    }
+  ]
+}

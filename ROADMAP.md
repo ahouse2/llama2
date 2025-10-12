@@ -1,0 +1,157 @@
+# Project Roadmap: Automated Legal Discovery Platform Reinvention
+
+- [ ] Phase 0: Due Diligence & Alignment
+  - [ ] 0.1 Requirements Traceability Reconstruction
+    - [ ] 0.1.1 Inventory current repository assets and verify against TRD/PRP line items
+      - [x] 0.1.1.1 Script deep repo scan (code, infra, data) to catalog real components vs documented claims
+    - [x] 0.1.1.2 Build traceability matrix mapping TRD functional bullets to implemented modules/tests
+      - [ ] 0.1.1.3 Flag critical gaps (missing services, environments, datasets) with severity scoring
+    - [ ] 0.1.2 Stakeholder interviews to validate evolving legal workflows and monetization expectations
+      - [ ] 0.1.2.1 Prepare questionnaire covering ingestion, research, courtroom simulation, compliance
+      - [ ] 0.1.2.2 Conduct sessions with litigators, paralegals, knowledge managers, IT security
+      - [ ] 0.1.2.3 Synthesize findings into updated TRD addendum and pricing justification dossier
+  - [ ] 0.2 Risk & Compliance Baseline
+    - [ ] 0.2.1 Perform threat model workshop (STRIDE + legal data privacy overlays)
+      - [ ] 0.2.1.1 Enumerate data flows (upload, storage, processing, retrieval, export)
+      - [ ] 0.2.1.2 Identify attack surfaces and regulatory checkpoints (HIPAA, GDPR, SOC2)
+      - [ ] 0.2.1.3 Prioritize mitigations and define security acceptance criteria per feature
+    - [ ] 0.2.2 Draft governance plan for audit trails, retention, redaction, and privilege handling
+      - [ ] 0.2.2.1 Specify evidence chain-of-custody schema across storage layers
+      - [ ] 0.2.2.2 Define auto-redaction policies and QA sampling procedures
+      - [ ] 0.2.2.3 Align governance controls with monetization/legal review board expectations
+
+- [ ] Phase 1: Core Platform Architecture & Infrastructure Hardening
+  - [ ] 1.1 Monorepo Restructuring & Toolchain Modernization
+    - [ ] 1.1.1 Establish `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, `/tests` canonical layout
+      - [ ] 1.1.1.1 Scaffold backend FastAPI project with modular service packages and dependency injection
+      - [ ] 1.1.1.2 Scaffold frontend Vite/React workspace with design system integration (Tailwind + Radix)
+      - [ ] 1.1.1.3 Configure root-level task runner (Justfile) and composite lint/test scripts
+    - [ ] 1.1.2 Replace ad-hoc binaries with reproducible devcontainers & Nix/Poetry/PNPM lockfiles
+      - [ ] 1.1.2.1 Create `.devcontainer` with GPU-aware options and secrets management
+      - [ ] 1.1.2.2 Publish reproducible backend environment via Poetry + UV cache & lock
+      - [ ] 1.1.2.3 Establish frontend environment via PNPM workspaces + turbo repo caching
+  - [ ] 1.2 Cloud-Native Infrastructure Baseline
+    - [ ] 1.2.1 Author production-ready Dockerfiles and multi-stage builds (backend, frontend, workers)
+      - [ ] 1.2.1.1 Harden images with distroless base, non-root users, minimal attack surface
+      - [ ] 1.2.1.2 Embed CI vulnerability scans (Trivy, Snyk) and SBOM generation
+      - [ ] 1.2.1.3 Parameterize build-time secrets via build args + Vault integration
+    - [ ] 1.2.2 Compose Kubernetes deployment blueprints (Helm or Terraform + ArgoCD)
+      - [ ] 1.2.2.1 Model namespaces for core services, supporting DBs, and preview environments
+      - [ ] 1.2.2.2 Configure autoscaling, pod disruption budgets, and canary release strategy
+      - [ ] 1.2.2.3 Integrate observability stack (OpenTelemetry, Prometheus, Grafana, Loki)
+  - [ ] 1.3 Data Foundations
+    - [ ] 1.3.1 Stand up managed instances or IaC modules for Qdrant, Neo4j, MinIO, Redis, PostgreSQL
+      - [ ] 1.3.1.1 Configure encryption at rest + rotation policies
+      - [ ] 1.3.1.2 Implement role-based credentials and secret syncing to app workloads
+      - [ ] 1.3.1.3 Seed staging datasets for automated smoke tests
+    - [ ] 1.3.2 Define universal schema contracts (Pydantic models + JSON Schema)
+      - [ ] 1.3.2.1 Draft ingestion metadata schema, citation schema, audit log schema
+      - [ ] 1.3.2.2 Generate shared TypeScript types from schemas (type-safe API clients)
+      - [ ] 1.3.2.3 Enforce schema validation at API boundaries with 100% coverage
+
+- [ ] Phase 2: Intelligence & Workflow Engines
+  - [ ] 2.1 Document Ingestion Pipeline MVP
+    - [ ] 2.1.1 Implement asynchronous ingestion orchestrator (Celery or Prefect)
+      - [ ] 2.1.1.1 Support file uploads, folder sync, and API-based ingestion triggers
+      - [ ] 2.1.1.2 Integrate OCR microservice (Tesseract + GPU acceleration + QA heuristics)
+      - [ ] 2.1.1.3 Build retry/backoff, dead-letter queues, and operator dashboards
+    - [ ] 2.1.2 Build semantic parsing and classification services
+      - [ ] 2.1.2.1 Deploy multimodal LLM (GPT-4o-mini + Llama 3.1 local fallback) for metadata extraction
+      - [ ] 2.1.2.2 Train supervised classifiers for doc type, privilege risk, importance scoring
+      - [ ] 2.1.2.3 Persist enriched metadata to graph + relational stores atomically
+  - [ ] 2.2 Retrieval-Augmented Intelligence Layer
+    - [ ] 2.2.1 Develop hybrid retrieval service (vector + keyword + graph traversal)
+      - [ ] 2.2.1.1 Implement query planner to balance semantic similarity vs graph constraints
+      - [ ] 2.2.1.2 Add contextual chunk reranking (Cross-Encoder) and citation verification loop
+      - [ ] 2.2.1.3 Expose typed API endpoints with streaming responses and trace IDs
+    - [ ] 2.2.2 Construct multi-agent Autogen orchestration per TRD specification
+      - [ ] 2.2.2.1 Define agent prompts, capabilities, and routing policies in configuration DSL
+      - [ ] 2.2.2.2 Implement conversation memory, tool access control, and escalation pathways
+      - [ ] 2.2.2.3 Create automated evaluations (agentic unit tests) for delegation and grounding fidelity
+  - [ ] 2.3 Knowledge Graph & Analytics
+    - [ ] 2.3.1 Implement graph extraction pipelines with schema governance
+      - [ ] 2.3.1.1 Build triple extraction prompts with confidence scoring + human review queue
+      - [ ] 2.3.1.2 Enforce ontologies (entities, relationships, temporal anchors) via Neo4j constraints
+      - [ ] 2.3.1.3 Provide GraphQL/Cypher APIs for timeline, relationship, and provenance queries
+    - [ ] 2.3.2 Advanced analytics modules
+      - [ ] 2.3.2.1 Timeline synthesizer with contradiction detection and what-if analysis
+      - [ ] 2.3.2.2 Financial anomaly detection using probabilistic models + SHAP explanations
+      - [ ] 2.3.2.3 Privilege risk scoring with continuous learning feedback loops
+
+- [ ] Phase 3: Experience Layer & Differentiators
+  - [ ] 3.1 Frontend Experience Overhaul
+    - [ ] 3.1.1 Neon courtroom-inspired UI system with accessibility compliance (WCAG 2.2 AA)
+      - [ ] 3.1.1.1 Develop responsive layout grid, theming tokens, and dark/light modes
+      - [ ] 3.1.1.2 Build reusable components (chat, timeline, document viewer, diff inspector)
+      - [ ] 3.1.1.3 Integrate real-time collaboration indicators and role-based content masking
+    - [ ] 3.1.2 Voice & multimodal interaction suite
+      - [ ] 3.1.2.1 Embed WebRTC microphone pipeline with on-device wake word detection
+      - [ ] 3.1.2.2 Provide TTS personas per character (judge, opposing counsel, witness)
+      - [ ] 3.1.2.3 Add conversation bookmarks, playback controls, and exportable transcripts
+  - [ ] 3.2 Mock Courtroom Simulator
+    - [ ] 3.2.1 Simulation engine design
+      - [ ] 3.2.1.1 Model procedural state machine (motions, objections, witness flow)
+      - [ ] 3.2.1.2 Implement NPC behavior trees fed by case graph context
+      - [ ] 3.2.1.3 Render stylized 3D/2D scenes (React Three Fiber + Spine animations)
+    - [ ] 3.2.2 Feedback & assessment
+      - [ ] 3.2.2.1 Capture performance metrics (response time, legal accuracy, persuasion score)
+      - [ ] 3.2.2.2 Generate coaching reports with targeted drills and curated Trial University content
+      - [ ] 3.2.2.3 Support multiplayer practice sessions with team roles and moderator tools
+  - [ ] 3.3 Trial University Knowledge Hub
+    - [ ] 3.3.1 Curate and ingest educational corpus with licensing compliance
+      - [ ] 3.3.1.1 Build ingestion connectors to open case law, CLE materials, firm knowledge bases
+      - [ ] 3.3.1.2 Apply summarization + quiz generation pipelines with citation enforcement
+      - [ ] 3.3.1.3 Implement adaptive learning paths and gamified progress tracking
+    - [ ] 3.3.2 Integrate with agent workflows
+      - [ ] 3.3.2.1 Allow agents to surface recommended lessons contextually during case work
+      - [ ] 3.3.2.2 Provide one-click cite/export to briefs and knowledge notebooks
+      - [ ] 3.3.2.3 Enable offline sync for courtroom/offline scenarios
+
+- [ ] Phase 4: Enterprise-Grade Quality, Compliance, and Monetization
+  - [ ] 4.1 Reliability & Performance Engineering
+    - [ ] 4.1.1 Establish exhaustive automated test suites (unit, contract, load, chaos)
+      - [ ] 4.1.1.1 Reach 90% coverage on backend services with golden dataset assertions
+      - [ ] 4.1.1.2 Stand up synthetic data load tests simulating multi-firm workloads
+      - [ ] 4.1.1.3 Implement chaos engineering (Litmus) for resilience against component failures
+    - [ ] 4.1.2 Implement SLO-driven observability and alerting
+      - [ ] 4.1.2.1 Define SLOs for ingestion latency, retrieval accuracy, agent response time
+      - [ ] 4.1.2.2 Configure alert routing (PagerDuty) with playbooks and incident drills
+      - [ ] 4.1.2.3 Build executive dashboards demonstrating ROI metrics for sales enablement
+  - [ ] 4.2 Security, Privacy, and Compliance Certification
+    - [ ] 4.2.1 Implement zero-trust access controls and tenant isolation
+      - [ ] 4.2.1.1 Enforce per-tenant encryption keys and scoped API tokens
+      - [ ] 4.2.1.2 Deploy adaptive DLP (data loss prevention) for exports and screen shares
+      - [ ] 4.2.1.3 Integrate SSO/SAML, SCIM provisioning, and audit trails with tamper-proof logs
+    - [ ] 4.2.2 Achieve SOC2 Type II and prepare HIPAA/GDPR compliance packages
+      - [ ] 4.2.2.1 Automate evidence collection with Vanta/Drata integrations
+      - [ ] 4.2.2.2 Document policies, run tabletop exercises, and close remediation tasks
+      - [ ] 4.2.2.3 Commission third-party penetration testing and legal data privacy reviews
+  - [ ] 4.3 Pricing, Packaging, and Market Differentiation
+    - [ ] 4.3.1 Design tiered subscription model targeting $1k/mo flagship plan
+      - [ ] 4.3.1.1 Bundle premium features (courtroom simulator, analytics, compliance) into flagship
+      - [ ] 4.3.1.2 Provide ROI calculator and case studies quantifying time/cost savings
+      - [ ] 4.3.1.3 Align usage-based overages (ingestion volume, seats) with enterprise expectations
+    - [ ] 4.3.2 Launch go-to-market enablement
+      - [ ] 4.3.2.1 Develop sales engineering demo scripts and sandbox environments
+      - [ ] 4.3.2.2 Produce security & compliance whitepapers and buyer's guide
+      - [ ] 4.3.2.3 Coordinate pilot program with anchor law firms, capture testimonials
+
+- [ ] Phase 5: Continuous Innovation & Personal Signature Enhancements
+  - [ ] 5.1 Adaptive Intelligence Lab
+    - [ ] 5.1.1 Establish reinforcement learning loop from attorney feedback with guardrails
+      - [ ] 5.1.1.1 Collect structured feedback at citation/argument granularity
+      - [ ] 5.1.1.2 Train reward models prioritizing legal accuracy and tone
+      - [ ] 5.1.1.3 Deploy gated RLHF updates with offline evaluation suites
+    - [ ] 5.1.2 Introduce creativity layers reflecting bespoke counsel personality modules
+      - [ ] 5.1.2.1 Allow attorneys to co-create persona overlays for narrative style and risk tolerance
+      - [ ] 5.1.2.2 Provide sandbox to preview persona impact on arguments and simulation behavior
+      - [ ] 5.1.2.3 Ship curated "Maestro" persona showcasing signature craftsmanship differentiators
+  - [ ] 5.2 Community & Ecosystem
+    - [ ] 5.2.1 Launch plugin marketplace for expert workflows (e-discovery, damages modeling)
+      - [ ] 5.2.1.1 Define SDK contracts and certification process
+      - [ ] 5.2.1.2 Seed marketplace with partner-built add-ons and rev-share agreements
+      - [ ] 5.2.1.3 Host quarterly hackathons and publish innovation leaderboards
+    - [ ] 5.2.2 Continuous delivery excellence
+      - [ ] 5.2.2.1 Automate progressive delivery with feature flags and user cohorts
+      - [ ] 5.2.2.2 Maintain living architecture decision records with quarterly refactors
+      - [ ] 5.2.2.3 Operate blue/green deployments with real-time rollback instrumentation

@@ -1,0 +1,7 @@
+{
+  "ARCH-READ": {
+    "status": "partial",
+    "notes": "README documents an aspirational architecture but lacks alignment with actual assets.",
+    "implemented_assets": ["README.md"]
+  }
+}
