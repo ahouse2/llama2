@@ -1,0 +1,1145 @@
+{
+  "generated_at": "2025-10-12T00:32:33.153732+00:00",
+  "source_traceability": "reports/due_diligence/traceability_matrix.json",
+  "severity_scale": [
+    {
+      "label": "critical",
+      "minimum_score": 10
+    },
+    {
+      "label": "high",
+      "minimum_score": 7
+    },
+    {
+      "label": "medium",
+      "minimum_score": 4
+    },
+    {
+      "label": "low",
+      "minimum_score": 0
+    }
+  ],
+  "gaps": [
+    {
+      "requirement_id": "ARCH-SECOPS",
+      "title": "Security and governance baseline",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Security and governance baseline"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 20,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 6,
+            "reason": "Foundational platform scaffolding must exist before feature work."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 5,
+            "reason": "keyword 'security' (+3); keyword 'governance' (+2)"
+          },
+          {
+            "name": "description_signal",
+            "value": 6,
+            "reason": "descriptor 'audit' (+2); descriptor 'compliance' (+2); descriptor 'threat' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 6 points (Foundational platform scaffolding must exist before feature work.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'security' (+3), keyword 'governance' (+2) for +5 points.",
+        "Description signals: descriptor 'audit' (+2), descriptor 'compliance' (+2), descriptor 'threat' (+2) for +6 points."
+      ],
+      "recommended_actions": [
+        "Draft an initial threat model outlining data flows, trust zones, and mitigations.",
+        "Codify access control and audit logging baselines that future services must satisfy."
+      ]
+    },
+    {
+      "requirement_id": "DATA-INGEST",
+      "title": "Document ingestion orchestrator",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Document ingestion orchestrator"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 18,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 7,
+            "reason": "keyword 'pipeline' (+2); keyword 'orchestrator' (+2); keyword 'ingest' (+3)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'pipeline' (+2), keyword 'orchestrator' (+2), keyword 'ingest' (+3) for +7 points."
+      ],
+      "recommended_actions": [
+        "Implement an asynchronous ingestion orchestrator (e.g., Prefect or Celery) handling uploads, folder sync, and API triggers.",
+        "Provision persistence for ingestion state plus dashboards for monitoring throughput and failures."
+      ]
+    },
+    {
+      "requirement_id": "OPS-SEC",
+      "title": "Security, privacy, and compliance",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Security, privacy, and compliance"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 18,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 7,
+            "reason": "Operational maturity and compliance are prerequisites for enterprise sales."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 6,
+            "reason": "keyword 'security' (+3); keyword 'compliance' (+3)"
+          },
+          {
+            "name": "description_signal",
+            "value": 2,
+            "reason": "descriptor 'audit' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 7 points (Operational maturity and compliance are prerequisites for enterprise sales.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'security' (+3), keyword 'compliance' (+3) for +6 points.",
+        "Description signals: descriptor 'audit' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Implement zero-trust access controls, tenant isolation, and encryption-in-depth.",
+        "Prepare SOC2/HIPAA readiness artifacts and evidence collection workflows."
+      ]
+    },
+    {
+      "requirement_id": "AGENT-COCOUNSEL",
+      "title": "Voice-enabled co-counsel agent",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Voice-enabled co-counsel agent"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 14,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Agent orchestration is the core product experience promised to clients."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 3,
+            "reason": "keyword 'agent' (+2); keyword 'voice' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Agent orchestration is the core product experience promised to clients.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'agent' (+2), keyword 'voice' (+1) for +3 points."
+      ],
+      "recommended_actions": [
+        "Ship a voice-enabled co-counsel persona orchestrating retrieval, reasoning, and empathetic responses.",
+        "Integrate microphone capture, TTS playback, and citation discipline per TRD guardrails."
+      ]
+    },
+    {
+      "requirement_id": "DATA-OCR",
+      "title": "OCR and multimodal transcription",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "OCR and multimodal transcription"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 14,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 3,
+            "reason": "keyword 'ocr' (+2); keyword 'vision' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'ocr' (+2), keyword 'vision' (+1) for +3 points."
+      ],
+      "recommended_actions": [
+        "Stand up an OCR/multimodal transcription microservice capable of processing scanned legal documents at scale.",
+        "Integrate QA heuristics so low-confidence pages get flagged for manual review."
+      ]
+    },
+    {
+      "requirement_id": "OPS-CI",
+      "title": "Continuous integration & delivery",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Continuous integration & delivery"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 14,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 7,
+            "reason": "Operational maturity and compliance are prerequisites for enterprise sales."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 4,
+            "reason": "keyword 'pipeline' (+2); keyword 'ci' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 7 points (Operational maturity and compliance are prerequisites for enterprise sales.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'pipeline' (+2), keyword 'ci' (+2) for +4 points."
+      ],
+      "recommended_actions": [
+        "Author CI pipelines covering lint, test, build, and artifact publication.",
+        "Track provenance metadata so deployments meet enterprise traceability standards."
+      ]
+    },
+    {
+      "requirement_id": "AGENT-DEV",
+      "title": "Self-improving developer agent",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Self-improving developer agent"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Agent orchestration is the core product experience promised to clients."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'agent' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Agent orchestration is the core product experience promised to clients.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'agent' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Deliver a self-improving developer agent capable of drafting patches and staging diffs for approval.",
+        "Automate evaluation hooks so only validated changes propagate to production branches."
+      ]
+    },
+    {
+      "requirement_id": "AGENT-EVAL",
+      "title": "Agentic evaluation harness",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Agentic evaluation harness"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Agent orchestration is the core product experience promised to clients."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'agent' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Agent orchestration is the core product experience promised to clients.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'agent' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Construct an agentic evaluation harness measuring grounding, delegation accuracy, and regressions.",
+        "Automate recurring evaluation runs with baselines for pass/fail gating."
+      ]
+    },
+    {
+      "requirement_id": "AGENT-NET",
+      "title": "Autogen-style multi-agent network",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Autogen-style multi-agent network"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Agent orchestration is the core product experience promised to clients."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'agent' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Agent orchestration is the core product experience promised to clients.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'agent' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Implement the multi-agent coordination layer with explicit role prompts and routing policies.",
+        "Instrument memory and escalation pathways to guarantee accountable delegation across agents."
+      ]
+    },
+    {
+      "requirement_id": "ARCH-DEVENV",
+      "title": "Reproducible developer environment",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Reproducible developer environment"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 6,
+            "reason": "Foundational platform scaffolding must exist before feature work."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 4,
+            "reason": "keyword 'environment' (+2); keyword 'ci' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 6 points (Foundational platform scaffolding must exist before feature work.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'environment' (+2), keyword 'ci' (+2) for +4 points."
+      ],
+      "recommended_actions": [
+        "Create reproducible devcontainers plus Poetry and PNPM lockfiles covering backend and frontend toolchains.",
+        "Document onboarding steps so new engineers can bootstrap environments in under 30 minutes."
+      ]
+    },
+    {
+      "requirement_id": "DATA-EMBED",
+      "title": "Embedding & vector indexing",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Embedding & vector indexing"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'vector' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'vector' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Deploy a vector store (Qdrant/Chroma) and populate it with embedded document nodes using consistent chunking.",
+        "Configure hybrid retrieval combining semantic and lexical signals with persistence across restarts."
+      ]
+    },
+    {
+      "requirement_id": "DATA-GRAPH",
+      "title": "Knowledge graph construction",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Knowledge graph construction"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'graph' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'graph' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Build graph extraction routines that produce high-confidence triples into Neo4j or an equivalent graph database.",
+        "Expose APIs (Cypher/GraphQL) enabling timeline and relationship queries backed by provenance metadata."
+      ]
+    },
+    {
+      "requirement_id": "DATA-PARSE",
+      "title": "LLM-driven parsing & classification",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "LLM-driven parsing & classification"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'classification' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'classification' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Develop LLM-assisted parsing pipelines to extract metadata, entities, and privilege risk indicators.",
+        "Persist structured outputs atomically so downstream search and analytics remain consistent."
+      ]
+    },
+    {
+      "requirement_id": "DATA-TIMELINE",
+      "title": "Event timeline synthesis",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Event timeline synthesis"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 8,
+            "reason": "Data ingestion and enrichment unlock every downstream intelligence feature."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'timeline' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 8 points (Data ingestion and enrichment unlock every downstream intelligence feature.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'timeline' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Create a timeline synthesis service aligning events, citations, and contradiction detection logic.",
+        "Offer exportable timeline views consumable by the frontend and reporting channels."
+      ]
+    },
+    {
+      "requirement_id": "OPS-TEST",
+      "title": "Automated testing portfolio",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Automated testing portfolio"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 13,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 7,
+            "reason": "Operational maturity and compliance are prerequisites for enterprise sales."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 3,
+            "reason": "keyword 'testing' (+2); keyword 'coverage' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 7 points (Operational maturity and compliance are prerequisites for enterprise sales.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'testing' (+2), keyword 'coverage' (+1) for +3 points."
+      ],
+      "recommended_actions": [
+        "Stand up automated testing tiers (unit, integration, load, chaos) with defined coverage targets.",
+        "Integrate test gates into CI/CD to prevent regressions from shipping."
+      ]
+    },
+    {
+      "requirement_id": "OPS-OBS",
+      "title": "Observability & SLO management",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Observability & SLO management"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 12,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 7,
+            "reason": "Operational maturity and compliance are prerequisites for enterprise sales."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'observability' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 7 points (Operational maturity and compliance are prerequisites for enterprise sales.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'observability' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Deploy observability stack (OpenTelemetry, Prometheus, Grafana, Loki) tracking ingestion latency and agent responsiveness.",
+        "Establish alerting tied to SLOs with on-call runbooks."
+      ]
+    },
+    {
+      "requirement_id": "BIZ-PRICING",
+      "title": "$1k/mo pricing justification",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Monetization & Market Strategy",
+        "$1k/mo pricing justification"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 11,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 4,
+            "reason": "Monetization artifacts are needed to justify flagship pricing tiers."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 3,
+            "reason": "keyword 'ci' (+2); keyword 'pricing' (+1)"
+          },
+          {
+            "name": "description_signal",
+            "value": 1,
+            "reason": "descriptor 'pricing' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 4 points (Monetization artifacts are needed to justify flagship pricing tiers.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'ci' (+2), keyword 'pricing' (+1) for +3 points.",
+        "Description signals: descriptor 'pricing' (+1) for +1 points."
+      ],
+      "recommended_actions": [
+        "Model ROI demonstrating how the platform justifies $1k/mo flagship pricing.",
+        "Bundle differentiators (court simulator, analytics, compliance) into coherent packaging collateral."
+      ]
+    },
+    {
+      "requirement_id": "UX-CHAT",
+      "title": "Neon chat console with citations",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Neon chat console with citations"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 10,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'ci' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'ci' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Build the neon-themed chat console with streaming responses and inline citation previews.",
+        "Ensure accessibility (WCAG 2.2 AA) across light/dark modes and responsive breakpoints."
+      ]
+    },
+    {
+      "requirement_id": "UX-TIMELINE",
+      "title": "Interactive timeline UI",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Interactive timeline UI"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 10,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 2,
+            "reason": "keyword 'timeline' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'timeline' (+2) for +2 points."
+      ],
+      "recommended_actions": [
+        "Deliver an interactive timeline UI with zoom, category filters, and evidence pop-outs.",
+        "Wire the timeline to backend APIs so citations remain synchronized with underlying data."
+      ]
+    },
+    {
+      "requirement_id": "UX-VOICE",
+      "title": "Voice I/O controls",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Voice I/O controls"
+      ],
+      "severity": {
+        "label": "critical",
+        "score": 10,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 1,
+            "reason": "keyword 'voice' (+1)"
+          },
+          {
+            "name": "description_signal",
+            "value": 1,
+            "reason": "descriptor 'wake' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'voice' (+1) for +1 points.",
+        "Description signals: descriptor 'wake' (+1) for +1 points."
+      ],
+      "recommended_actions": [
+        "Implement microphone capture, wake-word detection, and playback controls in the client.",
+        "Provide persona-selectable TTS voices aligning with trial roles (judge, opposing counsel, witness)."
+      ]
+    },
+    {
+      "requirement_id": "ARCH-REPO",
+      "title": "Canonical monorepo layout",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Canonical monorepo layout"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 9,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 6,
+            "reason": "Foundational platform scaffolding must exist before feature work."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 6 points (Foundational platform scaffolding must exist before feature work.).",
+        "Status 'missing' contributes 3 points because implementation is not complete."
+      ],
+      "recommended_actions": [
+        "Restructure the monorepo into `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, and `/tests` with runnable code in each segment.",
+        "Introduce automated checks ensuring directory conventions stay enforced going forward."
+      ]
+    },
+    {
+      "requirement_id": "INNOV-RL",
+      "title": "Reinforcement learning feedback loop",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Continuous Innovation",
+        "Reinforcement learning feedback loop"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 9,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 3,
+            "reason": "Innovation roadmap items sustain long-term differentiation."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 3,
+            "reason": "keyword 'feedback' (+1); keyword 'rlhf' (+2)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 3 points (Innovation roadmap items sustain long-term differentiation.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'feedback' (+1), keyword 'rlhf' (+2) for +3 points."
+      ],
+      "recommended_actions": [
+        "Design a reinforcement learning feedback loop capturing attorney feedback at citation-level granularity.",
+        "Stand up guardrailed RLHF training and offline evaluation suites before deploying updates."
+      ]
+    },
+    {
+      "requirement_id": "UX-SIM",
+      "title": "Mock courtroom simulator",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Mock courtroom simulator"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 9,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 1,
+            "reason": "keyword 'simulator' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'simulator' (+1) for +1 points."
+      ],
+      "recommended_actions": [
+        "Prototype the mock courtroom simulator with animated judge/opposing/witness characters.",
+        "Script procedural states (motions, objections, witness flow) and integrate AI-driven dialogues."
+      ]
+    },
+    {
+      "requirement_id": "UX-DOCS",
+      "title": "Integrated document viewer",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Integrated document viewer"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 8,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete."
+      ],
+      "recommended_actions": [
+        "Integrate a document viewer supporting highlights, annotation, and citation-linked navigation.",
+        "Support large PDF rendering with efficient lazy loading for 100+ page filings."
+      ]
+    },
+    {
+      "requirement_id": "UX-KNOWLEDGE",
+      "title": "Trial University knowledge hub",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Trial University knowledge hub"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 8,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 5,
+            "reason": "User-facing workflows determine adoption and perception of value."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 5 points (User-facing workflows determine adoption and perception of value.).",
+        "Status 'missing' contributes 3 points because implementation is not complete."
+      ],
+      "recommended_actions": [
+        "Curate the Trial University knowledge hub with searchable legal education content.",
+        "Add adaptive learning paths and exportable references to support attorney upskilling."
+      ]
+    },
+    {
+      "requirement_id": "ARCH-READ",
+      "title": "Authoritative architecture documentation",
+      "status": "partial",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Authoritative architecture documentation"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 7,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 6,
+            "reason": "Foundational platform scaffolding must exist before feature work."
+          },
+          {
+            "name": "status_partial",
+            "value": 1,
+            "reason": "Requirement currently marked as partial in the traceability matrix."
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 6 points (Foundational platform scaffolding must exist before feature work.).",
+        "Status 'partial' contributes 1 points because implementation is not complete."
+      ],
+      "recommended_actions": [
+        "Author a living architecture document grounded in actual repository components and deployment targets.",
+        "Backfill system diagrams capturing data flow, trust boundaries, and hosting assumptions for audit readiness."
+      ]
+    },
+    {
+      "requirement_id": "BIZ-GTM",
+      "title": "Go-to-market enablement",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Monetization & Market Strategy",
+        "Go-to-market enablement"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 7,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 4,
+            "reason": "Monetization artifacts are needed to justify flagship pricing tiers."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 4 points (Monetization artifacts are needed to justify flagship pricing tiers.).",
+        "Status 'missing' contributes 3 points because implementation is not complete."
+      ],
+      "recommended_actions": [
+        "Produce sales demos, playbooks, and sandbox environments for anchor law firms.",
+        "Capture testimonials and case studies to accelerate go-to-market execution."
+      ]
+    },
+    {
+      "requirement_id": "INNOV-MARKETPLACE",
+      "title": "Plugin marketplace",
+      "status": "missing",
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Continuous Innovation",
+        "Plugin marketplace"
+      ],
+      "severity": {
+        "label": "high",
+        "score": 7,
+        "components": [
+          {
+            "name": "domain_base",
+            "value": 3,
+            "reason": "Innovation roadmap items sustain long-term differentiation."
+          },
+          {
+            "name": "status_missing",
+            "value": 3,
+            "reason": "Requirement currently marked as missing in the traceability matrix."
+          },
+          {
+            "name": "keyword_signal",
+            "value": 1,
+            "reason": "keyword 'marketplace' (+1)"
+          }
+        ]
+      },
+      "rationale": [
+        "Domain baseline contributes 3 points (Innovation roadmap items sustain long-term differentiation.).",
+        "Status 'missing' contributes 3 points because implementation is not complete.",
+        "Keyword signals: keyword 'marketplace' (+1) for +1 points."
+      ],
+      "recommended_actions": [
+        "Define SDK contracts and certification for third-party workflow plugins.",
+        "Seed the marketplace with pilot partners and revenue-sharing agreements."
+      ]
+    }
+  ],
+  "summary": {
+    "total_gaps": 28,
+    "severity_counts": {
+      "critical": 20,
+      "high": 8
+    }
+  }
+}
