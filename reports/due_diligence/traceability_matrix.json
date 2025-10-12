@@ -1,0 +1,774 @@
+{
+  "generated_at": "2025-10-12T00:16:02.275816Z",
+  "requirements": [
+    {
+      "id": "ARCH",
+      "title": "Architecture & Platform Governance",
+      "description": "Foundational technical architecture, repository structure, and security governance expectations.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "ARCH-READ",
+        "ARCH-REPO",
+        "ARCH-DEVENV",
+        "ARCH-SECOPS"
+      ],
+      "status": "missing",
+      "implemented_assets": [
+        "README.md"
+      ],
+      "auto_matched_assets": [],
+      "notes": [
+        "README documents an aspirational architecture but lacks alignment with actual assets."
+      ]
+    },
+    {
+      "id": "ARCH-READ",
+      "title": "Authoritative architecture documentation",
+      "description": "Maintain accurate documentation that reflects the actual system topology, data flows, and component responsibilities to satisfy TRD transparency requirements.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Authoritative architecture documentation"
+      ],
+      "keywords": [
+        "architecture",
+        "docs"
+      ],
+      "parent_id": "ARCH",
+      "children": [],
+      "status": "partial",
+      "implemented_assets": [
+        "README.md"
+      ],
+      "auto_matched_assets": [],
+      "notes": [
+        "README documents an aspirational architecture but lacks alignment with actual assets."
+      ]
+    },
+    {
+      "id": "ARCH-REPO",
+      "title": "Canonical monorepo layout",
+      "description": "Provide the prescribed `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, and `/tests` structure with active code in each area as mandated by the PRP.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Canonical monorepo layout"
+      ],
+      "keywords": [
+        "apps/backend",
+        "apps/frontend"
+      ],
+      "parent_id": "ARCH",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "ARCH-DEVENV",
+      "title": "Reproducible developer environment",
+      "description": "Ship devcontainers or equivalent environment automation plus language-specific dependency locks for backend and frontend stacks.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Reproducible developer environment"
+      ],
+      "keywords": [
+        "devcontainer",
+        "poetry.lock",
+        "pnpm-lock"
+      ],
+      "parent_id": "ARCH",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "ARCH-SECOPS",
+      "title": "Security and governance baseline",
+      "description": "Define threat models, access controls, and compliance guardrails including audit trail strategy before feature delivery.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Architecture & Platform Governance",
+        "Security and governance baseline"
+      ],
+      "keywords": [
+        "threat",
+        "security",
+        "audit"
+      ],
+      "parent_id": "ARCH",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA",
+      "title": "Data Pipeline & Knowledge Fabric",
+      "description": "Ingestion, enrichment, indexing, and graph construction workflows powering retrieval-augmented intelligence.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "DATA-INGEST",
+        "DATA-OCR",
+        "DATA-PARSE",
+        "DATA-EMBED",
+        "DATA-GRAPH",
+        "DATA-TIMELINE"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-INGEST",
+      "title": "Document ingestion orchestrator",
+      "description": "Asynchronous ingestion service handling uploads, folder sync, and API triggers with reliability controls.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Document ingestion orchestrator"
+      ],
+      "keywords": [
+        "ingest",
+        "pipeline"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-OCR",
+      "title": "OCR and multimodal transcription",
+      "description": "Vision-LLM or OCR microservice converting scanned material into machine-readable text with QA heuristics.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "OCR and multimodal transcription"
+      ],
+      "keywords": [
+        "ocr",
+        "vision"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-PARSE",
+      "title": "LLM-driven parsing & classification",
+      "description": "Metadata extraction, entity tagging, and privilege risk scoring using language models per TRD workflow diagrams.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "LLM-driven parsing & classification"
+      ],
+      "keywords": [
+        "parser",
+        "classification"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-EMBED",
+      "title": "Embedding & vector indexing",
+      "description": "Vector store population (Qdrant/Pinecone) with hybrid retrieval configuration and persistence management.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Embedding & vector indexing"
+      ],
+      "keywords": [
+        "qdrant",
+        "vector",
+        "embedding"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-GRAPH",
+      "title": "Knowledge graph construction",
+      "description": "Graph extraction pipeline writing triples to Neo4j/Memgraph and exposing Cypher/GraphQL interfaces.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Knowledge graph construction"
+      ],
+      "keywords": [
+        "graph",
+        "neo4j"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "DATA-TIMELINE",
+      "title": "Event timeline synthesis",
+      "description": "Automated timeline builder aligning events, citations, and contradictions with exportable visualizations.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Data Pipeline & Knowledge Fabric",
+        "Event timeline synthesis"
+      ],
+      "keywords": [
+        "timeline"
+      ],
+      "parent_id": "DATA",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "AGENT",
+      "title": "Agent Orchestration & Automation",
+      "description": "Coordinated network of specialized agents delivering casework, research, and self-improvement capabilities.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "AGENT-NET",
+        "AGENT-COCOUNSEL",
+        "AGENT-DEV",
+        "AGENT-EVAL"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "AGENT-NET",
+      "title": "Autogen-style multi-agent network",
+      "description": "Configured roster of coordinating, legal research, timeline, and tooling agents with explicit policies and memory.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Autogen-style multi-agent network"
+      ],
+      "keywords": [
+        "agent",
+        "autogen"
+      ],
+      "parent_id": "AGENT",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "AGENT-COCOUNSEL",
+      "title": "Voice-enabled co-counsel agent",
+      "description": "Primary persona delivering empathetic voice/text assistance with tool orchestration and citation discipline.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Voice-enabled co-counsel agent"
+      ],
+      "keywords": [
+        "voice",
+        "speech",
+        "cocounsel"
+      ],
+      "parent_id": "AGENT",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "AGENT-DEV",
+      "title": "Self-improving developer agent",
+      "description": "Agent that drafts patches, runs evaluations, and ships approved updates through automated workflows.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Self-improving developer agent"
+      ],
+      "keywords": [
+        "dev_agent",
+        "patch"
+      ],
+      "parent_id": "AGENT",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "AGENT-EVAL",
+      "title": "Agentic evaluation harness",
+      "description": "Automated assessments verifying delegation, grounding, and regression behavior for agent swarms.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Agent Orchestration & Automation",
+        "Agentic evaluation harness"
+      ],
+      "keywords": [
+        "evaluation",
+        "harness"
+      ],
+      "parent_id": "AGENT",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX",
+      "title": "Experience Layer & Differentiators",
+      "description": "User-facing applications including chat, document exploration, trial preparation, and educational modules.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "UX-CHAT",
+        "UX-DOCS",
+        "UX-TIMELINE",
+        "UX-VOICE",
+        "UX-SIM",
+        "UX-KNOWLEDGE"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-CHAT",
+      "title": "Neon chat console with citations",
+      "description": "Real-time chat UI surfacing inline citations that open contextual snippets per TRD UX guidelines.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Neon chat console with citations"
+      ],
+      "keywords": [
+        "chat",
+        "frontend"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-DOCS",
+      "title": "Integrated document viewer",
+      "description": "Embedded viewer supporting uploads, highlights, and synchronized citation jumps.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Integrated document viewer"
+      ],
+      "keywords": [
+        "viewer",
+        "document"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-TIMELINE",
+      "title": "Interactive timeline UI",
+      "description": "Scrollable/zoomable timeline with category filters, pop-out event cards, and evidence links.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Interactive timeline UI"
+      ],
+      "keywords": [
+        "timeline",
+        "ui"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-VOICE",
+      "title": "Voice I/O controls",
+      "description": "Microphone capture, wake word detection, speech synthesis, and playback management integrated into the client.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Voice I/O controls"
+      ],
+      "keywords": [
+        "voice",
+        "webrtc"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-SIM",
+      "title": "Mock courtroom simulator",
+      "description": "Animated simulation environment with judge, opposing counsel, and witness personas for practice sessions.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Mock courtroom simulator"
+      ],
+      "keywords": [
+        "simulator",
+        "court"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "UX-KNOWLEDGE",
+      "title": "Trial University knowledge hub",
+      "description": "Educational library and retrieval interface for case law, procedural guides, and adaptive lessons.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Experience Layer & Differentiators",
+        "Trial University knowledge hub"
+      ],
+      "keywords": [
+        "knowledge",
+        "university"
+      ],
+      "parent_id": "UX",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "OPS",
+      "title": "Operational Excellence & Compliance",
+      "description": "Deployment automation, observability, testing, and security certifications supporting enterprise readiness.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "OPS-CI",
+        "OPS-OBS",
+        "OPS-SEC",
+        "OPS-TEST"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "OPS-CI",
+      "title": "Continuous integration & delivery",
+      "description": "Automated pipelines covering build, lint, test, and deployment promotions with artifact provenance.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Continuous integration & delivery"
+      ],
+      "keywords": [
+        "ci",
+        "pipeline"
+      ],
+      "parent_id": "OPS",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "OPS-OBS",
+      "title": "Observability & SLO management",
+      "description": "Tracing, metrics, logging, and alerting aligned to ingestion latency, retrieval accuracy, and agent responsiveness.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Observability & SLO management"
+      ],
+      "keywords": [
+        "observability",
+        "telemetry"
+      ],
+      "parent_id": "OPS",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "OPS-SEC",
+      "title": "Security, privacy, and compliance",
+      "description": "Zero-trust controls, tenant isolation, audit logging, and readiness for SOC2/HIPAA/GDPR audits.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Security, privacy, and compliance"
+      ],
+      "keywords": [
+        "compliance",
+        "soc2"
+      ],
+      "parent_id": "OPS",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "OPS-TEST",
+      "title": "Automated testing portfolio",
+      "description": "Unit, integration, load, and chaos testing harnesses achieving coverage thresholds defined by the TRD.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Operational Excellence & Compliance",
+        "Automated testing portfolio"
+      ],
+      "keywords": [
+        "test",
+        "coverage"
+      ],
+      "parent_id": "OPS",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "BIZ",
+      "title": "Monetization & Market Strategy",
+      "description": "Commercial packaging, pricing, and sales enablement deliverables required for premium positioning.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Monetization & Market Strategy"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "BIZ-PRICING",
+        "BIZ-GTM"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "BIZ-PRICING",
+      "title": "$1k/mo pricing justification",
+      "description": "ROI models, packaging of premium differentiators, and readiness to defend value-based pricing.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Monetization & Market Strategy",
+        "$1k/mo pricing justification"
+      ],
+      "keywords": [
+        "pricing",
+        "roi"
+      ],
+      "parent_id": "BIZ",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "BIZ-GTM",
+      "title": "Go-to-market enablement",
+      "description": "Sales demos, collateral, and pilot programs to onboard anchor firms and capture testimonials.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Monetization & Market Strategy",
+        "Go-to-market enablement"
+      ],
+      "keywords": [
+        "gtm",
+        "sales"
+      ],
+      "parent_id": "BIZ",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "INNOV",
+      "title": "Continuous Innovation",
+      "description": "Long-term differentiators including reinforcement learning loops and ecosystem expansion.",
+      "level": 1,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Continuous Innovation"
+      ],
+      "keywords": [],
+      "parent_id": "TRD",
+      "children": [
+        "INNOV-RL",
+        "INNOV-MARKETPLACE"
+      ],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "INNOV-RL",
+      "title": "Reinforcement learning feedback loop",
+      "description": "Collect attorney feedback, train reward models, and ship controlled RLHF updates.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Continuous Innovation",
+        "Reinforcement learning feedback loop"
+      ],
+      "keywords": [
+        "rlhf",
+        "feedback"
+      ],
+      "parent_id": "INNOV",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    },
+    {
+      "id": "INNOV-MARKETPLACE",
+      "title": "Plugin marketplace",
+      "description": "Ecosystem for certified plugins, SDK contracts, and partner revenue sharing.",
+      "level": 2,
+      "path_titles": [
+        "Automated Legal Discovery Platform TRD",
+        "Continuous Innovation",
+        "Plugin marketplace"
+      ],
+      "keywords": [
+        "marketplace",
+        "plugin"
+      ],
+      "parent_id": "INNOV",
+      "children": [],
+      "status": "missing",
+      "implemented_assets": [],
+      "auto_matched_assets": [],
+      "notes": []
+    }
+  ],
+  "summary": {
+    "total_requirements": 28,
+    "status_counts": {
+      "missing": 27,
+      "candidate": 0,
+      "partial": 1,
+      "full": 0,
+      "not-applicable": 0
+    },
+    "coverage_ratio": 0.017857142857142856
+  },
+  "source_files": {
+    "requirements": "reports/due_diligence/trd_requirements.json",
+    "inventory": "reports/due_diligence/repo_inventory.json",
+    "overrides": "reports/due_diligence/traceability_overrides.json"
+  }
+}

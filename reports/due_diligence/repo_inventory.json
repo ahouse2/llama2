@@ -1,0 +1,129 @@
+{
+  "root": "/workspace/llama2",
+  "generated_at": "2025-10-12T00:08:42.123019+00:00",
+  "total_files": 8,
+  "total_size_bytes": 24808478,
+  "directories": {
+    ".": {
+      "total_files": 8,
+      "total_size_bytes": 24808478,
+      "category_file_counts": {
+        "code": 1,
+        "infrastructure": 0,
+        "documentation": 6,
+        "data": 0,
+        "assets": 0,
+        "other": 1
+      },
+      "category_size_bytes": {
+        "documentation": 312664,
+        "other": 24484864,
+        "code": 10950
+      }
+    },
+    "reports": {
+      "total_files": 0,
+      "total_size_bytes": 0,
+      "category_file_counts": {
+        "code": 0,
+        "infrastructure": 0,
+        "documentation": 0,
+        "data": 0,
+        "assets": 0,
+        "other": 0
+      },
+      "category_size_bytes": {}
+    },
+    "reports/due_diligence": {
+      "total_files": 0,
+      "total_size_bytes": 0,
+      "category_file_counts": {
+        "code": 0,
+        "infrastructure": 0,
+        "documentation": 0,
+        "data": 0,
+        "assets": 0,
+        "other": 0
+      },
+      "category_size_bytes": {}
+    },
+    "tools": {
+      "total_files": 1,
+      "total_size_bytes": 10950,
+      "category_file_counts": {
+        "code": 1,
+        "infrastructure": 0,
+        "documentation": 0,
+        "data": 0,
+        "assets": 0,
+        "other": 0
+      },
+      "category_size_bytes": {
+        "code": 10950
+      }
+    },
+    "llama_index": {
+      "total_files": 0,
+      "total_size_bytes": 0,
+      "category_file_counts": {
+        "code": 0,
+        "infrastructure": 0,
+        "documentation": 0,
+        "data": 0,
+        "assets": 0,
+        "other": 0
+      },
+      "category_size_bytes": {}
+    }
+  },
+  "files": [
+    {
+      "path": "AGENTS_TRD-PRP-1.md",
+      "size_bytes": 78334,
+      "category": "documentation",
+      "extension": ".md"
+    },
+    {
+      "path": "EXECUTION_LOG.md",
+      "size_bytes": 1710,
+      "category": "documentation",
+      "extension": ".md"
+    },
+    {
+      "path": "Full TRDPRP for Automated Legal Dis.md",
+      "size_bytes": 68015,
+      "category": "documentation",
+      "extension": ".md"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 2072,
+      "category": "documentation",
+      "extension": ".md"
+    },
+    {
+      "path": "ROADMAP.md",
+      "size_bytes": 12458,
+      "category": "documentation",
+      "extension": ".md"
+    },
+    {
+      "path": "TRD-PRP_legal_tech_2.docx",
+      "size_bytes": 150075,
+      "category": "documentation",
+      "extension": ".docx"
+    },
+    {
+      "path": "codex-x86_64-pc-windows-msvc.exe",
+      "size_bytes": 24484864,
+      "category": "other",
+      "extension": ".exe"
+    },
+    {
+      "path": "tools/repo_inventory.py",
+      "size_bytes": 10950,
+      "category": "code",
+      "extension": ".py"
+    }
+  ]
+}
