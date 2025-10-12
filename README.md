@@ -1,47 +1,75 @@
-Automated Legal Discovery Platform (Enterprise-Grade Skeleton)
+# Automated Legal Discovery Platform Reinvention
 
-This repo contains a production-ready scaffold for an enterprise Automated Legal Discovery Platform per the TRD/PRP. It includes:
+This repository houses the next-generation build-out of the Automated Legal Discovery Platform. Phase 1 focuses on establishing a disciplined monorepo architecture, production-grade service scaffolds, and ergonomic tooling that enable rapid yet reliable iteration for the intelligence layers to follow.
 
-- Backend API (`FastAPI`) with modular services for ingestion, indexing, retrieval, and knowledge graph
-- Frontend (`React + Vite + TypeScript`) neon-styled chat UI, uploads, search, and document viewer
-- Infra (`docker-compose`) with Qdrant (vector DB), Neo4j (graph DB), MinIO (object storage), and Redis (jobs)
+## Monorepo Layout
 
-Quick Start
+```
+apps/
+  backend/    # FastAPI service powering core APIs and health diagnostics
+  frontend/   # Vite + React experience layer with neon courtroom storytelling
+infra/        # Infrastructure-as-code, container, and cloud blueprints (in progress)
+docs/         # Architecture notes, roadmaps, and schema plans
+reports/      # Due diligence artifacts from Phase 0
+tests/        # Centralized automated test suites
+```
 
-- Copy `.env.example` to `.env` and set keys
-- Start infra: `docker compose -f infra/docker-compose.yml up -d`
-- Backend (local): `cd apps/backend && python -m venv .venv && .venv/Scripts/Activate.ps1 && pip install -r requirements.txt && uvicorn app.main:app --reload`
-- Frontend (local): `cd apps/frontend && corepack enable && pnpm i && pnpm dev`
+## Phase 1 Highlights
 
-Structure
+### Backend (`apps/backend`)
 
-- `apps/backend`: FastAPI app, service modules, and API routes
-- `apps/frontend`: Vite React app with chat, upload, search, and viewer
-- `infra/docker-compose.yml`: Dev stack (Qdrant, Neo4j, MinIO, Redis)
-- `storage/`: Local document storage (mounted volume)
+- FastAPI application factory with deterministic dependency injection via a handcrafted `ServiceContainer`.
+- Runtime fingerprinting utilities that expose environment, commit, build timestamp, and uptime through `/health/ready`.
+- Liveness endpoint `/health/live` returning precise UTC timestamps for observability pipelines.
+- Pytest suite validating the health contract to guard against regressions.
 
-Backend Overview
+### Frontend (`apps/frontend`)
 
-- Endpoints: `/ingest`, `/search`, `/chat`, `/documents/{id}`, `/graph/entity/{id}`
-- Services: `IngestionService`, `IndexService` (vector), `RetrievalService` (RAG), `GraphService` (KG)
-- Pluggable providers via env (OpenAI, Qdrant, Neo4j, MinIO); graceful in-memory fallbacks
+- Vite + React workspace rendering the Phase 1 strategic narrative with Tailwind CSS + Radix-powered neon theming.
+- Modular composition (`HeroPanel`, `MilestoneRoadmap`) ready to expand into chat, timeline, and simulation views.
+- TypeScript-first configuration with strict mode, shared design primitives, and documented PNPM workflows.
 
-Frontend Overview
+### Tooling
 
-- Neon-themed chat with citations that open the document viewer
-- Upload new evidence; auto-indexing feedback via toasts
-- Search panel with semantic results and metadata chips
+- Root `Justfile` orchestrating installation, testing, development servers, and production builds across workspaces.
+- Hierarchical execution blueprint at `docs/phase1/architecture.md` tracking completion state and upcoming objectives.
 
-Environment Variables
+## Getting Started
 
-- `OPENAI_API_KEY` (optional)
-- `QDRANT_URL`, `QDRANT_API_KEY` (optional)
-- `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (optional)
-- `MINIO_ENDPOINT`, `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`
-- `REDIS_URL` (optional)
+### Backend
 
-Notes
+```bash
+cd apps/backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .[dev]
+uvicorn justice_platform.app:get_app --reload
+```
 
-- This is a robust scaffold with working stubs. Swap stub implementations with production providers incrementally.
-- See inline `TODO:` markers for suggested next steps.
+Run backend tests from the repo root:
 
+```bash
+PYTHONPATH=apps/backend/src pytest tests/backend
+```
+
+### Frontend
+
+```bash
+cd apps/frontend
+pnpm install
+pnpm dev
+```
+
+Visit http://localhost:5173 to explore the Phase 1 roadmap experience. Build production assets with `pnpm build`.
+
+## Roadmap & Status
+
+- Phase 0 due diligence artifacts remain available under `reports/` for auditability; execution has shifted to Phase 1 per stakeholder directive.
+- Phase 1 deliverables and verification checklist live in `docs/phase1/architecture.md` and `ROADMAP.md`.
+- Upcoming work: devcontainer + Poetry/PNPM locks, Docker/Kubernetes baselines, and shared schema contracts.
+
+## Contributing
+
+1. Install dependencies via the Justfile targets (`just backend-install`, `just frontend-install`).
+2. Keep commits focused and reference roadmap identifiers in messages.
+3. Ensure backend tests pass (`just backend-test`) and capture frontend visual diffs for UX-impacting changes.

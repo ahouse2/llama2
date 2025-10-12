@@ -1,31 +1,31 @@
 # Project Roadmap: Automated Legal Discovery Platform Reinvention
 
-- [ ] Phase 0: Due Diligence & Alignment
+- [~] Phase 0: Due Diligence & Alignment _(remaining scope deferred in favor of accelerated build-out)_
   - [ ] 0.1 Requirements Traceability Reconstruction
     - [ ] 0.1.1 Inventory current repository assets and verify against TRD/PRP line items
       - [x] 0.1.1.1 Script deep repo scan (code, infra, data) to catalog real components vs documented claims
     - [x] 0.1.1.2 Build traceability matrix mapping TRD functional bullets to implemented modules/tests
-      - [ ] 0.1.1.3 Flag critical gaps (missing services, environments, datasets) with severity scoring
-    - [ ] 0.1.2 Stakeholder interviews to validate evolving legal workflows and monetization expectations
-      - [ ] 0.1.2.1 Prepare questionnaire covering ingestion, research, courtroom simulation, compliance
-      - [ ] 0.1.2.2 Conduct sessions with litigators, paralegals, knowledge managers, IT security
-      - [ ] 0.1.2.3 Synthesize findings into updated TRD addendum and pricing justification dossier
-  - [ ] 0.2 Risk & Compliance Baseline
-    - [ ] 0.2.1 Perform threat model workshop (STRIDE + legal data privacy overlays)
-      - [ ] 0.2.1.1 Enumerate data flows (upload, storage, processing, retrieval, export)
-      - [ ] 0.2.1.2 Identify attack surfaces and regulatory checkpoints (HIPAA, GDPR, SOC2)
-      - [ ] 0.2.1.3 Prioritize mitigations and define security acceptance criteria per feature
-    - [ ] 0.2.2 Draft governance plan for audit trails, retention, redaction, and privilege handling
-      - [ ] 0.2.2.1 Specify evidence chain-of-custody schema across storage layers
-      - [ ] 0.2.2.2 Define auto-redaction policies and QA sampling procedures
-      - [ ] 0.2.2.3 Align governance controls with monetization/legal review board expectations
+      - [x] 0.1.1.3 Flag critical gaps (missing services, environments, datasets) with severity scoring
+-  - [ ] 0.1.2 Stakeholder interviews to validate evolving legal workflows and monetization expectations _(deferred)_
+    - [ ] 0.1.2.1 Prepare questionnaire covering ingestion, research, courtroom simulation, compliance _(deferred)_
+    - [ ] 0.1.2.2 Conduct sessions with litigators, paralegals, knowledge managers, IT security _(deferred)_
+    - [ ] 0.1.2.3 Synthesize findings into updated TRD addendum and pricing justification dossier _(deferred)_
+  - [ ] 0.2 Risk & Compliance Baseline _(deferred)_
+    - [ ] 0.2.1 Perform threat model workshop (STRIDE + legal data privacy overlays) _(deferred)_
+      - [ ] 0.2.1.1 Enumerate data flows (upload, storage, processing, retrieval, export) _(deferred)_
+      - [ ] 0.2.1.2 Identify attack surfaces and regulatory checkpoints (HIPAA, GDPR, SOC2) _(deferred)_
+      - [ ] 0.2.1.3 Prioritize mitigations and define security acceptance criteria per feature _(deferred)_
+    - [ ] 0.2.2 Draft governance plan for audit trails, retention, redaction, and privilege handling _(deferred)_
+      - [ ] 0.2.2.1 Specify evidence chain-of-custody schema across storage layers _(deferred)_
+      - [ ] 0.2.2.2 Define auto-redaction policies and QA sampling procedures _(deferred)_
+      - [ ] 0.2.2.3 Align governance controls with monetization/legal review board expectations _(deferred)_
 
 - [ ] Phase 1: Core Platform Architecture & Infrastructure Hardening
   - [ ] 1.1 Monorepo Restructuring & Toolchain Modernization
-    - [ ] 1.1.1 Establish `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, `/tests` canonical layout
-      - [ ] 1.1.1.1 Scaffold backend FastAPI project with modular service packages and dependency injection
-      - [ ] 1.1.1.2 Scaffold frontend Vite/React workspace with design system integration (Tailwind + Radix)
-      - [ ] 1.1.1.3 Configure root-level task runner (Justfile) and composite lint/test scripts
+    - [x] 1.1.1 Establish `/apps/backend`, `/apps/frontend`, `/infra`, `/docs`, `/tests` canonical layout
+      - [x] 1.1.1.1 Scaffold backend FastAPI project with modular service packages and dependency injection
+      - [x] 1.1.1.2 Scaffold frontend Vite/React workspace with design system integration (Tailwind + Radix)
+      - [x] 1.1.1.3 Configure root-level task runner (Justfile) and composite lint/test scripts
     - [ ] 1.1.2 Replace ad-hoc binaries with reproducible devcontainers & Nix/Poetry/PNPM lockfiles
       - [ ] 1.1.2.1 Create `.devcontainer` with GPU-aware options and secrets management
       - [ ] 1.1.2.2 Publish reproducible backend environment via Poetry + UV cache & lock
