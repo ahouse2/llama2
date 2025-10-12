@@ -68,6 +68,19 @@
       - [ ] 2.2.2.1 Define agent prompts, capabilities, and routing policies in configuration DSL
       - [ ] 2.2.2.2 Implement conversation memory, tool access control, and escalation pathways
       - [ ] 2.2.2.3 Create automated evaluations (agentic unit tests) for delegation and grounding fidelity
+    - [ ] 2.2.3 Co-Counsel Agent Network
+      - [ ] 2.2.3.1 Implement multi-agent orchestration (Autogen SDK)
+        - [ ] 2.2.3.1a Define agents: Co-Counsel (Lead), Ingestion, Research, Reasoning, Dev
+        - [ ] 2.2.3.1b Configure shared memory (Qdrant + Neo4j hybrid store)
+      - [ ] 2.2.3.2 Implement GraphRAG Query Engine (LlamaIndex)
+        - [ ] 2.2.3.2a End-to-end document → entity/relation → query-time retrieval
+        - [ ] 2.2.3.2b Atomic write to vector + graph stores w/ citations
+      - [ ] 2.2.3.3 Context Memory & Temporal Awareness
+       - [ ] 2.2.3.3a Sliding window summarization + case timeline sync
+      - [ ] 2.2.3.4 Emotional & Tone Controller
+       - [ ] 2.2.3.4a Sentiment analysis → prompt modulation for empathetic responses
+       
+
   - [ ] 2.3 Knowledge Graph & Analytics
     - [ ] 2.3.1 Implement graph extraction pipelines with schema governance
       - [ ] 2.3.1.1 Build triple extraction prompts with confidence scoring + human review queue
@@ -88,6 +101,13 @@
       - [ ] 3.1.2.1 Embed WebRTC microphone pipeline with on-device wake word detection
       - [ ] 3.1.2.2 Provide TTS personas per character (judge, opposing counsel, witness)
       - [ ] 3.1.2.3 Add conversation bookmarks, playback controls, and exportable transcripts
+    - [ ] 3.1.3 Voice & Emotional Awareness Suite
+      - [ ] 3.1.3.1 Integrate Whisper STT + Coqui TTS multi-voice registry
+      - [ ] 3.1.3.2 Implement emotion adapter to modulate tone/rate
+      - [ ] 3.1.3.3 Add temporal context hooks (deadlines, timeline events)
+      - [ ] 3.1.3.4 Link to Co-Counsel agent for contextual voice responses
+      - [ ] 3.1.3.5 Integrate hidden Character Research Mode:"activated uncensored research roleplay" with live video chat and photorealistic                       avatars and video chat interface
+        - [ ] 3.1.3.5a Add GUI settings to add private or uncensored model to co-counsel for this hidden "character research" module
   - [ ] 3.2 Mock Courtroom Simulator
     - [ ] 3.2.1 Simulation engine design
       - [ ] 3.2.1.1 Model procedural state machine (motions, objections, witness flow)
@@ -146,6 +166,10 @@
       - [ ] 5.1.2.1 Allow attorneys to co-create persona overlays for narrative style and risk tolerance
       - [ ] 5.1.2.2 Provide sandbox to preview persona impact on arguments and simulation behavior
       - [ ] 5.1.2.3 Ship curated "Maestro" persona showcasing signature craftsmanship differentiators
+    - [ ] 5.1.3 Dev Agent (Self-Improvement Loop)
+      - [ ] 5.1.3.1 Monitor user feedback → feature requests
+      - [ ] 5.1.3.2 Generate PR diffs for codebase under sandbox approval
+      - [ ] 5.1.3.3 Maintain skills registry & capability tests
   - [ ] 5.2 Community & Ecosystem
     - [ ] 5.2.1 Launch plugin marketplace for expert workflows (e-discovery, damages modeling)
       - [ ] 5.2.1.1 Define SDK contracts and certification process
