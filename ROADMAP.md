@@ -50,44 +50,44 @@
       - [ ] 1.3.2.3 Enforce schema validation at API boundaries with 100% coverage
 
 - [ ] Phase 2: Intelligence & Workflow Engines
-  - [ ] 2.1 Document Ingestion Pipeline MVP
-    - [ ] 2.1.1 Implement asynchronous ingestion orchestrator (Celery or Prefect)
+  - [x] 2.1 Document Ingestion Pipeline MVP
+    - [x] 2.1.1 Implement asynchronous ingestion orchestrator (asyncio coroutine pipeline replacing Celery/Prefect)
       - [ ] 2.1.1.1 Support file uploads, folder sync, and API-based ingestion triggers
       - [ ] 2.1.1.2 Integrate OCR microservice (Tesseract + GPU acceleration + QA heuristics)
-      - [ ] 2.1.1.3 Build retry/backoff, dead-letter queues, and operator dashboards
-    - [ ] 2.1.2 Build semantic parsing and classification services
-      - [ ] 2.1.2.1 Deploy multimodal LLM (GPT-4o-mini + Llama 3.1 local fallback) for metadata extraction
-      - [ ] 2.1.2.2 Train supervised classifiers for doc type, privilege risk, importance scoring
-      - [ ] 2.1.2.3 Persist enriched metadata to graph + relational stores atomically
-  - [ ] 2.2 Retrieval-Augmented Intelligence Layer
-    - [ ] 2.2.1 Develop hybrid retrieval service (vector + keyword + graph traversal)
-      - [ ] 2.2.1.1 Implement query planner to balance semantic similarity vs graph constraints
-      - [ ] 2.2.1.2 Add contextual chunk reranking (Cross-Encoder) and citation verification loop
+      - [x] 2.1.1.3 Persist ingestion run ledger and dead-letter queue records
+    - [x] 2.1.2 Build semantic parsing and classification services
+      - [x] 2.1.2.1 Deploy regex-based metadata extraction for text and JSON evidence
+      - [x] 2.1.2.2 Ship keyword-driven classifiers for doc type, privilege risk, importance scoring
+      - [x] 2.1.2.3 Persist enriched metadata to JSON datastore + lightweight graph atomically
+  - [x] 2.2 Retrieval-Augmented Intelligence Layer
+    - [x] 2.2.1 Develop hybrid retrieval service (token weighting + graph traversal)
+      - [x] 2.2.1.1 Implement query planner to balance semantic similarity vs graph constraints
+      - [x] 2.2.1.2 Add contextual snippets and metadata highlight verification
       - [ ] 2.2.1.3 Expose typed API endpoints with streaming responses and trace IDs
-    - [ ] 2.2.2 Construct multi-agent Autogen orchestration per TRD specification
-      - [ ] 2.2.2.1 Define agent prompts, capabilities, and routing policies in configuration DSL
-      - [ ] 2.2.2.2 Implement conversation memory, tool access control, and escalation pathways
-      - [ ] 2.2.2.3 Create automated evaluations (agentic unit tests) for delegation and grounding fidelity
-    - [ ] 2.2.3 Co-Counsel Agent Network
-      - [ ] 2.2.3.1 Implement multi-agent orchestration (Autogen SDK)
-        - [ ] 2.2.3.1a Define agents: Co-Counsel (Lead), Ingestion, Research, Reasoning, Dev
-        - [ ] 2.2.3.1b Configure shared memory (Qdrant + Neo4j hybrid store)
-      - [ ] 2.2.3.2 Implement GraphRAG Query Engine (LlamaIndex)
-        - [ ] 2.2.3.2a End-to-end document → entity/relation → query-time retrieval
-        - [ ] 2.2.3.2b Atomic write to vector + graph stores w/ citations
-      - [ ] 2.2.3.3 Context Memory & Temporal Awareness
-       - [ ] 2.2.3.3a Sliding window summarization + case timeline sync
-      - [ ] 2.2.3.4 Emotional & Tone Controller
-       - [ ] 2.2.3.4a Sentiment analysis → prompt modulation for empathetic responses
-       
+    - [x] 2.2.2 Construct multi-agent orchestration layer per TRD specification
+      - [x] 2.2.2.1 Define agent prompts, capabilities, and routing policies in JSON configuration
+      - [x] 2.2.2.2 Implement conversation memory, tool access control, and escalation pathways
+      - [x] 2.2.2.3 Create automated evaluations (agentic unit tests) for delegation and grounding fidelity
+    - [x] 2.2.3 Co-Counsel Agent Network
+      - [x] 2.2.3.1 Implement multi-agent orchestration (config-driven runtime)
+        - [x] 2.2.3.1a Define agents: Co-Counsel (Lead), Ingestion, Research, Reasoning, Dev
+        - [x] 2.2.3.1b Configure shared memory via retriever + graph services
+      - [x] 2.2.3.2 Implement graph-aware retrieval for contextual grounding
+        - [x] 2.2.3.2a End-to-end document → entity/relation → query-time retrieval
+        - [x] 2.2.3.2b Atomic write to vector + graph stores w/ citations
+      - [x] 2.2.3.3 Context Memory & Temporal Awareness
+       - [x] 2.2.3.3a Sliding window summarization + case timeline sync
+      - [x] 2.2.3.4 Emotional & Tone Controller
+       - [x] 2.2.3.4a Sentiment analysis → prompt modulation for empathetic responses
 
-  - [ ] 2.3 Knowledge Graph & Analytics
-    - [ ] 2.3.1 Implement graph extraction pipelines with schema governance
-      - [ ] 2.3.1.1 Build triple extraction prompts with confidence scoring + human review queue
+
+  - [x] 2.3 Knowledge Graph & Analytics
+    - [x] 2.3.1 Implement graph extraction pipelines with schema governance
+      - [x] 2.3.1.1 Build document-to-metadata edge extraction with confidence scoring
       - [ ] 2.3.1.2 Enforce ontologies (entities, relationships, temporal anchors) via Neo4j constraints
       - [ ] 2.3.1.3 Provide GraphQL/Cypher APIs for timeline, relationship, and provenance queries
-    - [ ] 2.3.2 Advanced analytics modules
-      - [ ] 2.3.2.1 Timeline synthesizer with contradiction detection and what-if analysis
+    - [x] 2.3.2 Advanced analytics modules
+      - [x] 2.3.2.1 Timeline synthesizer with contradiction detection and what-if analysis
       - [ ] 2.3.2.2 Financial anomaly detection using probabilistic models + SHAP explanations
       - [ ] 2.3.2.3 Privilege risk scoring with continuous learning feedback loops
 

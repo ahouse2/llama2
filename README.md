@@ -1,47 +1,31 @@
-Automated Legal Discovery Platform (Enterprise-Grade Skeleton)
+# Automated Legal Discovery Platform (Phase 2 Foundations)
 
-This repo contains a production-ready scaffold for an enterprise Automated Legal Discovery Platform per the TRD/PRP. It includes:
+This repository provides a focused, fully functional slice of the intelligence layer for the automated legal discovery platform. The backend exposes ingestion, retrieval, and agent orchestration services designed to run in a minimal Python environment without external ML dependencies.
 
-- Backend API (`FastAPI`) with modular services for ingestion, indexing, retrieval, and knowledge graph
-- Frontend (`React + Vite + TypeScript`) neon-styled chat UI, uploads, search, and document viewer
-- Infra (`docker-compose`) with Qdrant (vector DB), Neo4j (graph DB), MinIO (object storage), and Redis (jobs)
+## Phase 2 Highlights
 
-Quick Start
+- **Asynchronous ingestion coroutine** that computes checksums, parses structured metadata, optionally runs OCR if available, and stores results in a JSON-backed persistence layer.
+- **Deterministic parsing and classification** using regular expressions and keyword heuristics with metadata fan-out into a lightweight knowledge graph.
+- **Hybrid retrieval service** combining TF-IDF style term weighting with graph-derived boosts and metadata filters.
+- **Timeline synthesizer** that aggregates date fragments into chronologically ordered exports for downstream review.
+- **Multi-agent orchestrator** that consults retrieval and timeline services, applies sentiment-aware tone selection, and records every response for traceability.
 
-- Copy `.env.example` to `.env` and set keys
-- Start infra: `docker compose -f infra/docker-compose.yml up -d`
-- Backend (local): `cd apps/backend && python -m venv .venv && .venv/Scripts/Activate.ps1 && pip install -r requirements.txt && uvicorn app.main:app --reload`
-- Frontend (local): `cd apps/frontend && corepack enable && pnpm i && pnpm dev`
+## Quick Start (Backend)
 
-Structure
+```bash
+cd apps/backend
+python -m venv .venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+pip install -e .[tests]    # add .[api] if you want to expose FastAPI endpoints
+```
 
-- `apps/backend`: FastAPI app, service modules, and API routes
-- `apps/frontend`: Vite React app with chat, upload, search, and viewer
-- `infra/docker-compose.yml`: Dev stack (Qdrant, Neo4j, MinIO, Redis)
-- `storage/`: Local document storage (mounted volume)
+The service modules can be exercised directly from the REPL or through the test suite. API endpoints are optional; installing the `.[api]` extra enables FastAPI routing in `app/api`.
 
-Backend Overview
+## Running Tests
 
-- Endpoints: `/ingest`, `/search`, `/chat`, `/documents/{id}`, `/graph/entity/{id}`
-- Services: `IngestionService`, `IndexService` (vector), `RetrievalService` (RAG), `GraphService` (KG)
-- Pluggable providers via env (OpenAI, Qdrant, Neo4j, MinIO); graceful in-memory fallbacks
+```bash
+cd apps/backend
+pytest
+```
 
-Frontend Overview
-
-- Neon-themed chat with citations that open the document viewer
-- Upload new evidence; auto-indexing feedback via toasts
-- Search panel with semantic results and metadata chips
-
-Environment Variables
-
-- `OPENAI_API_KEY` (optional)
-- `QDRANT_URL`, `QDRANT_API_KEY` (optional)
-- `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (optional)
-- `MINIO_ENDPOINT`, `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`
-- `REDIS_URL` (optional)
-
-Notes
-
-- This is a robust scaffold with working stubs. Swap stub implementations with production providers incrementally.
-- See inline `TODO:` markers for suggested next steps.
-
+The tests execute an end-to-end ingestion, retrieval, and agent delegation flow against an isolated temporary workspace.
