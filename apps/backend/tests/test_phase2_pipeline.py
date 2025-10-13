@@ -22,6 +22,9 @@ def configure_environment(tmp_path_factory):
     os.environ["DISCOVERY_DATABASE_PATH"] = str(base / "state.json")
     os.environ["DISCOVERY_STORAGE_DIRECTORY"] = str(base / "uploads")
     os.environ["DISCOVERY_GRAPH_PATH"] = str(base / "graph.json")
+    os.environ["DISCOVERY_DATABASE_URL"] = f"sqlite+aiosqlite:///{(base / 'state.db').as_posix()}"
+    os.environ["DISCOVERY_STORAGE_DIRECTORY"] = str(base / "uploads")
+    os.environ["DISCOVERY_GRAPH_PATH"] = str(base / "graph.gpickle")
     os.environ["DISCOVERY_RETRIEVER_INDEX_PATH"] = str(base / "index")
     os.environ["DISCOVERY_TIMELINE_EXPORT_PATH"] = str(base / "timeline.csv")
     os.environ["DISCOVERY_AGENT_CONFIG_PATH"] = str(base / "agents.yaml")
@@ -63,6 +66,10 @@ def configure_environment(tmp_path_factory):
 def test_ingest_and_retrieve(configure_environment):
     from app.services import ingestion
     from app.database import get_session
+@pytest.mark.asyncio
+async def test_ingest_and_retrieve(configure_environment):
+    from app.services import ingestion
+    from app.database import Document, get_session
     from app.services.retrieval import retriever_service
 
     base_dir = Path(configure_environment)
@@ -81,6 +88,13 @@ def test_ingest_and_retrieve(configure_environment):
         assert document is not None
         assert document.document_type == "contract"
         assert "2023-01-05" in document.metadata.get("dates", [])
+    external_ids = await ingestion.ingest_paths([document_path])
+    assert len(external_ids) == 1
+
+    with get_session() as session:
+        document = session.query(Document).filter_by(external_id=external_ids[0]).one()
+        assert document.document_type == "contract"
+        assert "2023-01-05" in document.metadata_json.get("dates", [])
 
     results = retriever_service.search("January 5 contract", top_k=1)
     assert results
