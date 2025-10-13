@@ -1,0 +1,30 @@
+# Phase 2 Task Status Ledger
+
+- Phase 2: Intelligence & Workflow Engines *(status: not started)*
+  - 2.1 Document Ingestion Pipeline MVP *(status: not started)*
+    - 2.1.1 Implement asynchronous ingestion orchestrator *(status: not started)*
+      - 2.1.1.1 Support file uploads, folder sync, and API-based ingestion triggers *(status: not started)*
+      - 2.1.1.2 Integrate OCR microservice (Tesseract + GPU acceleration + QA heuristics) *(status: not started)*
+      - 2.1.1.3 Build retry/backoff, dead-letter queues, and operator dashboards *(status: not started)*
+    - 2.1.2 Build semantic parsing and classification services *(status: not started)*
+      - 2.1.2.1 Deploy multimodal LLM (GPT-4o-mini + Llama 3.1 local fallback) for metadata extraction *(status: not started)*
+      - 2.1.2.2 Train supervised classifiers for doc type, privilege risk, importance scoring *(status: not started)*
+      - 2.1.2.3 Persist enriched metadata to graph + relational stores atomically *(status: not started)*
+  - 2.2 Retrieval-Augmented Intelligence Layer *(status: not started)*
+    - 2.2.1 Develop hybrid retrieval service (vector + keyword + graph traversal) *(status: not started)*
+      - 2.2.1.1 Implement query planner to balance semantic similarity vs graph constraints *(status: not started)*
+      - 2.2.1.2 Add contextual chunk reranking (Cross-Encoder) and citation verification loop *(status: not started)*
+      - 2.2.1.3 Expose typed API endpoints with streaming responses and trace IDs *(status: not started)*
+    - 2.2.2 Construct multi-agent Autogen orchestration per TRD specification *(status: not started)*
+      - 2.2.2.1 Define agent prompts, capabilities, and routing policies in configuration DSL *(status: not started)*
+      - 2.2.2.2 Implement conversation memory, tool access control, and escalation pathways *(status: not started)*
+      - 2.2.2.3 Create automated evaluations (agentic unit tests) for delegation and grounding fidelity *(status: not started)*
+  - 2.3 Knowledge Graph & Analytics *(status: not started)*
+    - 2.3.1 Implement graph extraction pipelines with schema governance *(status: not started)*
+      - 2.3.1.1 Build triple extraction prompts with confidence scoring + human review queue *(status: not started)*
+      - 2.3.1.2 Enforce ontologies (entities, relationships, temporal anchors) via Neo4j constraints *(status: not started)*
+      - 2.3.1.3 Provide GraphQL/Cypher APIs for timeline, relationship, and provenance queries *(status: not started)*
+    - 2.3.2 Advanced analytics modules *(status: not started)*
+      - 2.3.2.1 Timeline synthesizer with contradiction detection and what-if analysis *(status: not started)*
+      - 2.3.2.2 Financial anomaly detection using probabilistic models + SHAP explanations *(status: not started)*
+      - 2.3.2.3 Privilege risk scoring with continuous learning feedback loops *(status: not started)*
