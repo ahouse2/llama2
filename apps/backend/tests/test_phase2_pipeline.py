@@ -19,6 +19,9 @@ if str(PROJECT_ROOT) not in sys.path:
 @pytest.fixture(scope="module", autouse=True)
 def configure_environment(tmp_path_factory):
     base = tmp_path_factory.mktemp("phase2")
+    os.environ["DISCOVERY_DATABASE_PATH"] = str(base / "state.json")
+    os.environ["DISCOVERY_STORAGE_DIRECTORY"] = str(base / "uploads")
+    os.environ["DISCOVERY_GRAPH_PATH"] = str(base / "graph.json")
     os.environ["DISCOVERY_DATABASE_URL"] = f"sqlite+aiosqlite:///{(base / 'state.db').as_posix()}"
     os.environ["DISCOVERY_STORAGE_DIRECTORY"] = str(base / "uploads")
     os.environ["DISCOVERY_GRAPH_PATH"] = str(base / "graph.gpickle")
@@ -60,6 +63,9 @@ def configure_environment(tmp_path_factory):
     yield base
 
 
+def test_ingest_and_retrieve(configure_environment):
+    from app.services import ingestion
+    from app.database import get_session
 @pytest.mark.asyncio
 async def test_ingest_and_retrieve(configure_environment):
     from app.services import ingestion
@@ -74,6 +80,14 @@ async def test_ingest_and_retrieve(configure_environment):
         encoding="utf-8",
     )
 
+    external_ids = asyncio.run(ingestion.ingest_paths([document_path]))
+    assert len(external_ids) == 1
+
+    with get_session() as session:
+        document = session.get_document_by_external_id(external_ids[0])
+        assert document is not None
+        assert document.document_type == "contract"
+        assert "2023-01-05" in document.metadata.get("dates", [])
     external_ids = await ingestion.ingest_paths([document_path])
     assert len(external_ids) == 1
 

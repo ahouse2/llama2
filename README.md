@@ -1,14 +1,17 @@
-Automated Legal Discovery Platform (Enterprise-Grade Skeleton)
+# Automated Legal Discovery Platform (Phase 2 Foundations)
 
-This repo contains a production-ready scaffold for an enterprise Automated Legal Discovery Platform per the TRD/PRP. Phase 2 delivers the intelligence and workflow engines described in the roadmap.
+
+This repository provides a focused, fully functional slice of the intelligence layer for the automated legal discovery platform. The backend exposes ingestion, retrieval, and agent orchestration services designed to run in a minimal Python environment without external ML dependencies.
 
 ## Phase 2 Highlights
 
-- **Asynchronous Prefect ingestion** with checksum validation, OCR fallback (Tesseract), metadata extraction, and retry-aware dead letter queues.
-- **Semantic parsing + rule-driven classification** that computes document types, privilege risk, and importance scoring while persisting structured fragments to SQLite and a persisted NetworkX knowledge graph.
-- **Hybrid retrieval service** blending TF-IDF similarity with graph proximity scoring, exposing JSON and streaming APIs for conversational agents.
-- **Multi-agent orchestrator** driven by a YAML registry that records conversation memory, governs tool usage, and adds sentiment-aware tone modulation.
-- **Timeline synthesizer** exporting chronological CSV summaries to support downstream analytics.
+- **Asynchronous ingestion coroutine** that computes checksums, parses structured metadata, optionally runs OCR if available, and stores results in a JSON-backed persistence layer.
+- **Deterministic parsing and classification** using regular expressions and keyword heuristics with metadata fan-out into a lightweight knowledge graph.
+- **Hybrid retrieval service** combining TF-IDF style term weighting with graph-derived boosts and metadata filters.
+- **Timeline synthesizer** that aggregates date fragments into chronologically ordered exports for downstream review.
+- **Multi-agent orchestrator** that consults retrieval and timeline services, applies sentiment-aware tone selection, and records every response for traceability.
+
+This repo contains a production-ready scaffold for an enterprise Automated Legal Discovery Platform per the TRD/PRP. Phase 2 delivers the intelligence and workflow engines described in the roadmap.
 
 ## Quick Start (Backend)
 
@@ -16,6 +19,14 @@ This repo contains a production-ready scaffold for an enterprise Automated Legal
 cd apps/backend
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+pip install -e .[tests]    # add .[api] if you want to expose FastAPI endpoints
+```
+
+The service modules can be exercised directly from the REPL or through the test suite. API endpoints are optional; installing the `.[api]` extra enables FastAPI routing in `app/api`.
+
+## Running Tests
+
+
 pip install -e .[tests]
 uvicorn app.main:app --reload
 ```
@@ -40,3 +51,4 @@ pytest
 
 The test suite provisions an isolated SQLite database and validates end-to-end ingestion, retrieval, and agent delegation flows.
 
+The tests execute an end-to-end ingestion, retrieval, and agent delegation flow against an isolated temporary workspace.
