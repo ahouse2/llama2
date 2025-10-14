@@ -1,7 +1,7 @@
 set shell := ["bash", "-lc"]
 
 @default:
-@just --list
+    @just --list
 
 # ----- Backend -----
 backend-install:
@@ -22,24 +22,28 @@ backend-typecheck:
 backend-test:
     cd apps/backend && poetry run pytest
 
+# ----- pnpm helpers -----
+pnpm-install:
+    pnpm install --frozen-lockfile
+
 # ----- Frontend -----
 frontend-install:
-    cd apps/frontend && npm install
+    just pnpm-install
 
 frontend-lint:
-    cd apps/frontend && npm run lint
+    pnpm --filter legal-discovery-frontend lint
 
 frontend-format-write:
-    cd apps/frontend && npm run format:write
+    pnpm --filter legal-discovery-frontend format:write
 
 frontend-format-check:
-    cd apps/frontend && npm run format
+    pnpm --filter legal-discovery-frontend format
 
 frontend-typecheck:
-    cd apps/frontend && npm run typecheck
+    pnpm --filter legal-discovery-frontend typecheck
 
 frontend-test:
-    cd apps/frontend && npm run test
+    pnpm --filter legal-discovery-frontend test
 
 # ----- Integration Tests -----
 integration-install:
@@ -62,7 +66,8 @@ docs-mkdocs-serve:
     cd docs && mkdocs serve
 
 docs-docusaurus-start:
-    cd docs/docusaurus && npm install && npm run start
+    just pnpm-install
+    pnpm --filter discovery-docs start
 
 # ----- Aggregate Workflows -----
 install-all:
