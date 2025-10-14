@@ -3,66 +3,78 @@
 This monorepo houses the automation, orchestration, and experience layers for the automated legal discovery platform. Each application is developed in isolation but wired together through a shared task runner, canonical documentation, and infrastructure as code.
 
 ## Workspace Layout
-- `apps/backend` — FastAPI microservices exposing ingestion, retrieval, and agent orchestration APIs. Managed with Poetry.
-- `apps/frontend` — React + Vite console with Tailwind CSS and Radix UI components for analyst workflows.
-- `docs` — Hybrid documentation stack: MkDocs for operational runbooks and Docusaurus for product knowledge.
-- `infra` — Terraform modules and Helm charts that provision persistent infrastructure and deploy workloads.
-- `tests` — Cross-application integration suites targeting the deployed services.
-- `tools` — Repository automation utilities including structure validation.
 
-## Bootstrap Instructions
-### Backend
-```bash
-cd apps/backend
-poetry install
-poetry run uvicorn app.main:app --reload
+```
+.
+├── apps
+│   ├── backend      # FastAPI microservices managed with Poetry
+│   └── frontend     # React + Vite console styled with Tailwind CSS + Radix UI
+├── docs             # MkDocs (ops) + Docusaurus (product) documentation systems
+├── infra            # Terraform modules and Helm charts for platform provisioning
+├── tests            # Cross-application integration suites (Pytest + HTTPX)
+└── tools            # Repository automation, including structure validation
 ```
 
-### Frontend
+Each workspace includes an in-depth README with stack notes, bootstrap commands, and contribution standards.
+
+## Bootstrapping by Workspace
+
+### Backend (`apps/backend`)
 ```bash
-cd apps/frontend
-npm install
-npm run dev
+just backend-install
+just backend-test
+```
+Expose the API locally via `poetry run uvicorn app.main:app --reload` once dependencies are installed.
+
+### Frontend (`apps/frontend`)
+```bash
+just frontend-install
+just frontend-test
+just frontend-typecheck
+```
+Start the Vite dev server with `npm run dev`.
+
+### Integration Tests (`tests`)
+```bash
+just integration-install
+just integration-test
 ```
 
-### Documentation
-- MkDocs: `cd docs && mkdocs serve`
-- Docusaurus: `cd docs/docusaurus && npm install && npm run start`
+### Documentation (`docs`)
+- MkDocs runbooks: `just docs-mkdocs-serve`
+- Docusaurus knowledge base: `just docs-docusaurus-start`
 
-### Infrastructure
+### Infrastructure (`infra`)
 ```bash
 cd infra/terraform
 terraform init
 terraform plan -var-file=envs/dev/terraform.tfvars
 ```
-
-Helm deployments live in `infra/helm/platform` and can be applied via:
+Helm releases ship from `infra/helm/platform`:
 ```bash
 helm upgrade --install discovery infra/helm/platform \
   --namespace discovery --create-namespace \
   --values infra/helm/platform/values-dev.yaml
 ```
 
-### Integration Tests
-```bash
-cd tests
-poetry install
-poetry run pytest
-```
+## Automation via `just`
 
-## Task Runner
-The root [`Justfile`](Justfile) coordinates linting, formatting, type-checking, testing, and documentation workflows:
+The root [`Justfile`](Justfile) orchestrates formatting, linting, type-checking, and tests across every workspace:
 
 ```bash
-just backend-lint
-just frontend-test
-just integration-test
-just ci
+just install-all        # Install backend, frontend, and integration dependencies
+just lint-all           # Ruff + ESLint coverage
+just typecheck-all      # mypy + TypeScript checks
+just format-check-all   # Black/Prettier/Ruff format verification
+just test-all           # Backend, frontend, and integration test suites
+just check-all          # Runs structure validation + all quality gates
+just ci                 # Installs dependencies then executes the full quality stack
 ```
 
-Use `just` to list available recipes. The `just ci` aggregate mirrors the checks enforced in continuous integration.
+Run `just --list` to discover every available recipe, including workspace-specific format writers.
 
-## Continuous Integration Guarantees
-- `tools/check_workspace_structure.py` fails fast if any canonical directory or configuration is missing.
-- Linting, formatting, type-checking, and test suites run across backend, frontend, and integration workspaces.
-- Infrastructure and documentation directories are versioned to prevent drift between code and deployment assets.
+## Continuous Integration Guardrails
+
+- [`tools/check_workspace_structure.py`](tools/check_workspace_structure.py) enforces the canonical directory layout and validates critical configuration (dependencies, README content, Terraform/Helm markers).
+- `just ci` mirrors the CI pipeline by running structure validation, linting, formatting checks, type-checking, and tests after installing dependencies.
+- Documentation and infrastructure directories are versioned to prevent drift between deployment assets and runtime services.
