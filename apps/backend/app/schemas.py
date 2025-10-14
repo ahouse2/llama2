@@ -1,24 +1,9 @@
-"""Simple data structures used by optional API endpoints."""
-
-from __future__ import annotations
-
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional
-
-
-@dataclass
-class IngestionRunRead:
-    trace_id: str
-    source: str
-    status: str
-    started_at: str
-    completed_at: Optional[str] = None
-"""Pydantic schemas for API responses."""
+"""Pydantic schemas for API payloads and internal DTOs."""
 
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -33,18 +18,11 @@ class IngestionRunRead(BaseModel):
     error_message: Optional[str] = None
 
 
-@dataclass
-class DeadLetterRead:
 class DeadLetterRead(BaseModel):
     trace_id: str
-    payload: Dict[str, str]
+    payload: Dict[str, Any]
     error_message: str
     stacktrace: Optional[str] = None
-    created_at: str = ""
-
-
-@dataclass
-class DocumentRead:
     created_at: datetime
 
 
@@ -53,48 +31,31 @@ class DocumentRead(BaseModel):
     document_type: Optional[str]
     privilege_risk: float
     importance_score: float
-    metadata: Dict[str, List[str]] = field(default_factory=dict)
-
-
-@dataclass
-class SearchResultRead:
     metadata: Dict[str, List[str]] = Field(default_factory=dict)
+    summary: Optional[str] = None
 
 
 class SearchResultRead(BaseModel):
     document_id: str
     score: float
     snippet: str
-    highlights: Dict[str, List[str]]
+    highlights: Dict[str, List[str]] = Field(default_factory=dict)
     trace_id: str
 
 
-@dataclass
-class AgentMessage:
-    trace_id: str
-    role: str
 class AgentMessage(BaseModel):
     trace_id: str
-    role: str = "user"
+    role: str = Field(default="user")
     message: str
     summary: Optional[str] = None
 
 
-@dataclass
-class SearchRequest:
 class SearchRequest(BaseModel):
     query: str
-    top_k: int = 5
+    top_k: int = Field(default=5, ge=1, le=50)
     filters: Optional[Dict[str, List[str]]] = None
 
 
-@dataclass
-class FolderIngestionRequest:
-    folder_path: str
-
-
-@dataclass
-class TriggerIngestionRequest:
 class FolderIngestionRequest(BaseModel):
     folder_path: str
 
