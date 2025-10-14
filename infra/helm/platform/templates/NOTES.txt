@@ -1,0 +1,7 @@
+Thank you for deploying the Discovery Platform API.
+
+Get the status of the release with:
+  kubectl --namespace {{ .Release.Namespace }} get pods -l {{ include "discovery-platform.selectorLabels" . | nindent 2 }}
+
+Port-forward locally with:
+  kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "discovery-platform.fullname" . }} 8080:{{ .Values.service.port }}

@@ -97,3 +97,33 @@ httpx = { version = ">=0.26", optional = true }
 pytest = ">=7.4"
 pytest-asyncio = ">=0.21"
 httpx = ">=0.26"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+ruff = "^0.1.14"
+mypy = "^1.8.0"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+src = ["app", "tests"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.10"
+plugins = []
+ignore_missing_imports = true
+strict_optional = true
+warn_unused_configs = true
+show_error_codes = true

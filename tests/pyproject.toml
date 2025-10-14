@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "discovery-integration-tests"
+package-mode = false
+version = "0.1.0"
+description = "Integration test suites spanning backend and frontend services"
+authors = ["Automated Architect"]
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+legal-discovery-backend = { path = "../apps/backend", develop = true }
+httpx = "^0.26.0"
+pytest = "^7.4"
+pytest-asyncio = "^0.21"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.14"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["integration"]
+pythonpath = [".."]
+
+[tool.ruff]
+line-length = 100
+src = ["integration"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
