@@ -8,29 +8,29 @@ from typing import AsyncGenerator, List
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
-from ...schemas import SearchRequest, SearchResultRead
+from ...schemas import SearchRequest, SearchResult
 from ...services.retrieval import retriever_service
 from ...services.timeline import timeline_service
 
 router = APIRouter(prefix="/api/retrieval", tags=["retrieval"])
 
 
-@router.get("/search", response_model=List[SearchResultRead])
-async def search_get(query: str = Query(...), top_k: int = Query(5)) -> List[SearchResultRead]:
+@router.get("/search", response_model=List[SearchResult])
+async def search_get(query: str = Query(...), top_k: int = Query(5)) -> List[SearchResult]:
     results = retriever_service.search(query, top_k=top_k)
-    return [SearchResultRead(**result.__dict__) for result in results]
+    return results
 
 
-@router.post("/search", response_model=List[SearchResultRead])
-async def search_post(request: SearchRequest) -> List[SearchResultRead]:
+@router.post("/search", response_model=List[SearchResult])
+async def search_post(request: SearchRequest) -> List[SearchResult]:
     results = retriever_service.search(request.query, top_k=request.top_k, filters=request.filters)
-    return [SearchResultRead(**result.__dict__) for result in results]
+    return results
 
 
 async def _stream_results(query: str, top_k: int) -> AsyncGenerator[bytes, None]:
     results = retriever_service.search(query, top_k=top_k)
     for result in results:
-        payload = json.dumps(result.__dict__)
+        payload = json.dumps(result.model_dump())
         yield payload.encode("utf-8") + b"\n"
     timeline = timeline_service.summarize()
     yield json.dumps({"timeline": timeline}).encode("utf-8") + b"\n"

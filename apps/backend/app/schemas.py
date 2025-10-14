@@ -8,6 +8,24 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
+class AgentConfig(BaseModel):
+    """Strongly typed agent configuration sourced from YAML manifests."""
+
+    name: str
+    role: str
+    tools: List[str] = Field(min_length=1)
+    escalate_to: Optional[str] = None
+
+
+class AgentResponse(BaseModel):
+    """Structured agent response enriched with tonal metadata."""
+
+    agent: str
+    message: str
+    citations: List[str] = Field(default_factory=list)
+    tone: str
+
+
 class IngestionRunRead(BaseModel):
     trace_id: str
     source: str
@@ -35,12 +53,16 @@ class DocumentRead(BaseModel):
     summary: Optional[str] = None
 
 
-class SearchResultRead(BaseModel):
+class SearchResult(BaseModel):
     document_id: str
     score: float
     snippet: str
     highlights: Dict[str, List[str]] = Field(default_factory=dict)
     trace_id: str
+
+
+# Backwards compatibility alias for earlier imports.
+SearchResultRead = SearchResult
 
 
 class AgentMessage(BaseModel):
