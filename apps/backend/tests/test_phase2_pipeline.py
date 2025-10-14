@@ -1,59 +1,7 @@
 import asyncio
-import os
-import sys
-from importlib import reload
 from pathlib import Path
 
 import pytest
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.append(str(PROJECT_ROOT))
-
-
-@pytest.fixture(scope="module", autouse=True)
-def configure_environment(tmp_path_factory):
-    base = tmp_path_factory.mktemp("phase2")
-    os.environ["DISCOVERY_DATABASE_URL"] = f"sqlite+aiosqlite:///{(base / 'state.db').as_posix()}"
-    os.environ["DISCOVERY_STORAGE_DIRECTORY"] = str(base / "uploads")
-    os.environ["DISCOVERY_GRAPH_PATH"] = str(base / "graph.gpickle")
-    os.environ["DISCOVERY_RETRIEVER_INDEX_PATH"] = str(base / "index")
-    os.environ["DISCOVERY_TIMELINE_EXPORT_PATH"] = str(base / "timeline.csv")
-    os.environ["DISCOVERY_AGENT_CONFIG_PATH"] = str(base / "agents.yaml")
-
-    import app.config as config
-
-    reload(config)
-    config.settings.ensure_directories()
-
-    import app.database as database
-
-    reload(database)
-    database.init_db()
-
-    import app.services.storage as storage
-    reload(storage)
-
-    import app.services.parser as parser
-    reload(parser)
-
-    import app.services.classifier as classifier
-    reload(classifier)
-
-    import app.services.retrieval as retrieval
-    reload(retrieval)
-    retrieval.retriever_service.rebuild()
-
-    import app.services.timeline as timeline
-    reload(timeline)
-
-    import app.services.agents as agents
-    reload(agents)
-
-    import app.services.ingestion as ingestion
-    reload(ingestion)
-
-    yield base
 
 
 @pytest.mark.asyncio

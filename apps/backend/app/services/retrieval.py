@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import uuid
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
@@ -14,18 +13,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from ..config import settings
 from ..database import Document, get_session
+from ..schemas import SearchResult
 from .graph import graph_manager
-
-
-@dataclass
-class SearchResult:
-    """Represents a hybrid retrieval hit."""
-
-    document_id: str
-    score: float
-    snippet: str
-    highlights: Dict[str, List[str]]
-    trace_id: str
 
 
 class HybridRetriever:

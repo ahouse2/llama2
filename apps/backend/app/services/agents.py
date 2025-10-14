@@ -4,27 +4,30 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional
 from uuid import uuid4
 
 import yaml
 from nltk.sentiment import SentimentIntensityAnalyzer
+from pydantic import ValidationError
+from prefect import flow, get_run_logger
 
 from ..config import settings
 from ..database import ConversationMemory, get_session
+from ..schemas import AgentConfig, AgentResponse
 from .retrieval import retriever_service
 from .timeline import timeline_service
 
 logger = logging.getLogger(__name__)
 
 try:  # pragma: no cover - external data download
-    SentimentIntensityAnalyzer()
+    SENTIMENT_ANALYZER = SentimentIntensityAnalyzer()
 except LookupError:  # pragma: no cover
     import nltk
 
     nltk.download("vader_lexicon")
+    SENTIMENT_ANALYZER = SentimentIntensityAnalyzer()
 
 
 def _emotion_tone(score: float) -> str:
@@ -35,28 +38,11 @@ def _emotion_tone(score: float) -> str:
     return "neutral"
 
 
-@dataclass
-class AgentConfig:
-    name: str
-    role: str
-    tools: List[str]
-    escalate_to: Optional[str] = None
-
-
-@dataclass
-class AgentResponse:
-    agent: str
-    message: str
-    citations: List[str]
-    tone: str
-
-
 class Agent:
     """Agent capable of using configured tools."""
 
     def __init__(self, config: AgentConfig) -> None:
         self.config = config
-        self.sentiment = SentimentIntensityAnalyzer()
 
     def handle(self, trace_id: str, prompt: str) -> AgentResponse:
         citations: List[str] = []
@@ -73,7 +59,7 @@ class Agent:
         if not message_parts:
             message_parts.append("No direct tools executed; manual reasoning required.")
         raw_message = "\n".join(message_parts)
-        tone_score = self.sentiment.polarity_scores(prompt)["compound"]
+        tone_score = SENTIMENT_ANALYZER.polarity_scores(prompt)["compound"]
         tone = _emotion_tone(tone_score)
         self._persist_memory(trace_id, prompt, raw_message)
         return AgentResponse(agent=self.config.name, message=raw_message, citations=citations, tone=tone)
@@ -111,12 +97,11 @@ class AgentOrchestrator:
         payload = yaml.safe_load(self.config_path.read_text(encoding="utf-8")) or {}
         agents: Dict[str, Agent] = {}
         for entry in payload.get("agents", []):
-            config = AgentConfig(
-                name=str(entry.get("name", "Unnamed")),
-                role=str(entry.get("role", "")),
-                tools=[str(tool) for tool in entry.get("tools", [])],
-                escalate_to=entry.get("escalate_to"),
-            )
+            try:
+                config = AgentConfig.model_validate(entry)
+            except ValidationError as exc:
+                logger.warning("Failed to load agent configuration %s due to %s", entry, exc)
+                continue
             agents[config.name] = Agent(config)
         if not agents:
             default = AgentConfig(name="CoCounsel", role="lead", tools=["retrieval", "timeline"])
@@ -128,6 +113,13 @@ class AgentOrchestrator:
             default = AgentConfig(name="CoCounsel", role="lead", tools=["retrieval", "timeline"])
             self.agents = {default.name: Agent(default)}
         trace = trace_id or f"trace-{uuid4().hex[:12]}"
+        prefect_logger = None
+        try:  # Prefect only available when running inside a flow
+            prefect_logger = get_run_logger()
+        except RuntimeError:
+            prefect_logger = None
+        if prefect_logger:
+            prefect_logger.info("Delegating prompt to %d agents", len(self.agents))
         responses: List[AgentResponse] = []
         for agent in self.agents.values():
             responses.append(agent.handle(trace, prompt))
@@ -135,3 +127,13 @@ class AgentOrchestrator:
 
 
 agent_orchestrator = AgentOrchestrator()
+
+
+@flow(name="agent-delegation", log_prints=False)
+def agent_delegation_flow(prompt: str, trace_id: Optional[str] = None) -> List[AgentResponse]:
+    """Prefect flow wrapper enabling orchestration within automation pipelines."""
+
+    return agent_orchestrator.delegate(prompt, trace_id=trace_id)
+
+
+__all__ = ["agent_orchestrator", "agent_delegation_flow", "Agent", "AgentOrchestrator"]
