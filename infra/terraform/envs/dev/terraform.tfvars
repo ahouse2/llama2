@@ -1,0 +1,6 @@
+environment       = "dev"
+aws_region        = "us-east-1"
+app_bucket_name   = "discovery-intelligence-dev-artifacts"
+kubernetes_host   = "https://kubernetes.dev.discovery.local"
+kubernetes_cluster_ca = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0t"
+kubernetes_token  = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImRldi1jbHVzdGVyIn0.dev-token-signature"
