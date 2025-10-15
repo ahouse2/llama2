@@ -1,5 +1,5 @@
 apiVersion: v2
 name: discovery-platform
-version: 0.1.0
-description: Helm chart deploying the legal discovery backend API
-appVersion: "0.1.0"
+version: 0.2.0
+description: Helm chart deploying backend, worker, and frontend workloads for the discovery platform
+appVersion: "0.2.0"

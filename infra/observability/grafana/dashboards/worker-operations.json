@@ -1,0 +1,72 @@
+{
+  "title": "Worker Operations",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Queue Depth",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "max(prefect_orion_queue_length{queue=~\"discovery-.*\"})",
+          "legendFormat": "{{queue}}"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "type": "graph",
+      "title": "Flow Run Failure Ratio",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(increase(prefect_flow_run_failures_total[15m])) / clamp_min(sum(increase(prefect_flow_run_started_total[15m])), 1)",
+          "legendFormat": "failure ratio"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "type": "graph",
+      "title": "CPU Saturation",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\".+worker.+\"}[5m]))",
+          "legendFormat": "usage"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 }
+    },
+    {
+      "type": "stat",
+      "title": "Available Replicas",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(kube_deployment_status_replicas_available{deployment=\"discovery-platform-worker\"})",
+          "legendFormat": "replicas"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 8 }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kube_pod_info, namespace)",
+        "current": { "text": "discovery", "value": "discovery" }
+      }
+    ]
+  }
+}

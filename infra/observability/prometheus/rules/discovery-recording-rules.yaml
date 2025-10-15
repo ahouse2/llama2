@@ -1,0 +1,19 @@
+groups:
+  - name: discovery-backend
+    interval: 30s
+    rules:
+      - record: discovery_backend:http_request_duration_seconds:p95
+        expr: histogram_quantile(0.95, sum(rate(http_server_duration_seconds_bucket{service="discovery-platform-backend"}[5m])) by (le))
+      - record: discovery_backend:http_request_rate
+        expr: sum(rate(http_server_requests_total{service="discovery-platform-backend"}[1m]))
+      - record: discovery_backend:error_ratio
+        expr: sum(rate(http_server_requests_total{service="discovery-platform-backend",status!~"2.."}[5m])) / clamp_min(sum(rate(http_server_requests_total{service="discovery-platform-backend"}[5m])), 1)
+  - name: discovery-worker
+    interval: 30s
+    rules:
+      - record: discovery_worker:prefect_flow_run_failures:ratio
+        expr: sum(increase(prefect_flow_run_failures_total[15m])) / clamp_min(sum(increase(prefect_flow_run_started_total[15m])), 1)
+      - record: discovery_worker:queue_depth
+        expr: max(prefect_orion_queue_length{queue="discovery-default"})
+      - record: discovery_worker:cpu_saturation
+        expr: avg(rate(container_cpu_usage_seconds_total{pod=~".+worker.+"}[5m])) / clamp_min(sum(kube_pod_container_resource_limits{container="worker", resource="cpu"}), 1)

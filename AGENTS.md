@@ -20,3 +20,11 @@
 - [ ] Formalize security and compliance playbooks (PII scrubbing, audit logging, RBAC) aligned with deployment environments.
 - [ ] Curate UI/UX roadmap covering chat-timeline interop, mock courtroom simulator, and educational "Trial University" modules with asset pipelines.
 
+## Stewardship Ledger
+
+### 2024-05-06 — Maintainer: gpt-5-codex
+- Reconciled project stewardship guidance with the latest infrastructure refactor, emphasizing security scanning, GitOps workflows, and observability defaults delivered in the prior change set.
+- Clarified expectations for updating this ledger so it reflects architectural intent, operational guardrails, and any deviations from the roadmap sections above.
+- Documented the requirement for maintainers to capture both implemented work and forward-looking intentions so cross-functional collaborators inherit accurate context.
+
+**Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.

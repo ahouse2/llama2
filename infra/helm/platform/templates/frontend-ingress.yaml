@@ -1,0 +1,37 @@
+{{- if and .Values.frontend.enabled .Values.frontend.ingress.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ printf "%s-frontend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "frontend") | nindent 4 }}
+  {{- with .Values.frontend.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.frontend.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- if .Values.frontend.ingress.tls }}
+  tls:
+    {{- toYaml .Values.frontend.ingress.tls | nindent 4 }}
+  {{- end }}
+  rules:
+    {{- range .Values.frontend.ingress.hosts }}
+    - host: {{ .host }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ printf "%s-frontend" (include "discovery-platform.fullname" $) }}
+                port:
+                  name: http
+          {{- end }}
+    {{- end }}
+{{- end -}}
