@@ -1,0 +1,91 @@
+{
+  "title": "Discovery Backend Overview",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Request Rate",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(http_server_requests_total{service=\"discovery-platform-backend\"}[1m]))",
+          "legendFormat": "req/s"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "type": "graph",
+      "title": "P95 Latency",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_seconds_bucket{service=\"discovery-platform-backend\"}[5m])) by (le))",
+          "legendFormat": "latency"
+        }
+      ],
+      "yaxes": [
+        { "format": "s", "logBase": 1 },
+        { "format": "short", "logBase": 1 }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "type": "graph",
+      "title": "Error Ratio",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(http_server_requests_total{service=\"discovery-platform-backend\",status!~\"2..\"}[5m])) / clamp_min(sum(rate(http_server_requests_total{service=\"discovery-platform-backend\"}[5m])), 1)",
+          "legendFormat": "error"
+        }
+      ],
+      "yaxes": [
+        { "format": "percentunit", "logBase": 1 },
+        { "format": "short", "logBase": 1 }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 }
+    },
+    {
+      "type": "stat",
+      "title": "Active Pods",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(kube_deployment_status_replicas_available{deployment=\"discovery-platform-backend\"})",
+          "legendFormat": "available"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 8 }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kube_pod_info, namespace)",
+        "current": { "text": "discovery", "value": "discovery" }
+      }
+    ]
+  },
+  "annotations": {
+    "list": [
+      {
+        "name": "Deployments",
+        "type": "tags",
+        "datasource": "Prometheus",
+        "enable": true,
+        "expr": "increase(kube_deployment_status_observed_generation{deployment=\"discovery-platform-backend\"}[5m])"
+      }
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+{{- if .Values.worker.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+{{- $sa := default (printf "%s-worker" (include "discovery-platform.fullname" .)) .Values.worker.serviceAccount.name -}}
+{{- $podAnnotations := merge (dict) (default (dict) .Values.worker.podAnnotations) -}}
+{{- if and .Values.global.prometheus.scrape .Values.worker.telemetry.serviceMonitor.enabled -}}
+{{- $_ := set $podAnnotations "prometheus.io/scrape" "true" -}}
+{{- $_ := set $podAnnotations "prometheus.io/path" (.Values.worker.telemetry.serviceMonitor.path | default "/metrics") -}}
+{{- $_ := set $podAnnotations "prometheus.io/port" "9464" -}}
+{{- end -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-worker" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "worker") | nindent 4 }}
+spec:
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "worker") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "worker") | nindent 8 }}
+      {{- if $podAnnotations }}
+      annotations:
+        {{- toYaml $podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ $sa }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: worker
+          image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+          imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+          {{- if .Values.worker.service.enabled }}
+          ports:
+            - containerPort: {{ .Values.worker.service.port }}
+              name: http
+          {{- end }}
+          env:
+            {{- with .Values.worker.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.worker.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            - name: OTEL_TRACES_EXPORTER
+              value: otlp
+            - name: OTEL_METRICS_EXPORTER
+              value: otlp
+            - name: OTEL_LOGS_EXPORTER
+              value: otlp
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: grpc
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.global.otel.endpoint | quote }}
+            {{- if .Values.global.otel.headers }}
+            - name: OTEL_EXPORTER_OTLP_HEADERS
+              value: {{ include "discovery-platform.otelHeaders" (dict "headers" .Values.global.otel.headers) | quote }}
+            {{- end }}
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: {{ include "discovery-platform.resourceAttributes" (dict "context" . "component" "worker") | quote }}
+            - name: PREFECT_AGENT_NAME
+              value: {{ printf "%s-worker" (include "discovery-platform.name" .) | quote }}
+            - name: PREFECT_HOME
+              value: /var/lib/prefect
+          volumeMounts:
+            - name: prefect-data
+              mountPath: /var/lib/prefect
+          resources:
+            {{- toYaml .Values.worker.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsGroup: 65532
+            runAsUser: 65532
+      volumes:
+        - name: prefect-data
+          emptyDir: {}
+      terminationGracePeriodSeconds: 30
+{{- end -}}

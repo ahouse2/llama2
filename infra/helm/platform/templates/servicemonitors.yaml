@@ -1,0 +1,44 @@
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+{{- if and .Values.backend.enabled .Values.backend.telemetry.serviceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "backend") | nindent 4 }}
+    {{- with .Values.backend.telemetry.serviceMonitor.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "backend") | nindent 6 }}
+  endpoints:
+    - port: http
+      interval: {{ .Values.backend.telemetry.serviceMonitor.interval }}
+      path: {{ .Values.backend.telemetry.serviceMonitor.path }}
+      scheme: http
+{{- end -}}
+{{- if and .Values.worker.enabled .Values.worker.telemetry.serviceMonitor.enabled -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ printf "%s-worker" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "worker") | nindent 4 }}
+    {{- with .Values.worker.telemetry.serviceMonitor.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "worker") | nindent 6 }}
+  endpoints:
+    - port: http
+      interval: {{ .Values.worker.telemetry.serviceMonitor.interval }}
+      path: {{ .Values.worker.telemetry.serviceMonitor.path }}
+      scheme: http
+{{- end -}}

@@ -1,0 +1,89 @@
+{{- if .Values.backend.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+{{- $sa := default (printf "%s-backend" (include "discovery-platform.fullname" .)) .Values.backend.serviceAccount.name -}}
+{{- $podAnnotations := merge (dict) (default (dict) .Values.backend.podAnnotations) -}}
+{{- if .Values.global.prometheus.scrape -}}
+{{- $_ := set $podAnnotations "prometheus.io/scrape" "true" -}}
+{{- $_ := set $podAnnotations "prometheus.io/path" (.Values.backend.telemetry.serviceMonitor.path | default "/metrics") -}}
+{{- $_ := set $podAnnotations "prometheus.io/port" (printf "%d" .Values.backend.ports.http) -}}
+{{- end -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "backend") | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "backend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "backend") | nindent 8 }}
+      {{- if $podAnnotations }}
+      annotations:
+        {{- toYaml $podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ $sa }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.ports.http }}
+              name: http
+          env:
+            {{- with .Values.backend.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.backend.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            - name: OTEL_TRACES_EXPORTER
+              value: otlp
+            - name: OTEL_METRICS_EXPORTER
+              value: otlp
+            - name: OTEL_LOGS_EXPORTER
+              value: otlp
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: grpc
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.global.otel.endpoint | quote }}
+            {{- if .Values.global.otel.headers }}
+            - name: OTEL_EXPORTER_OTLP_HEADERS
+              value: {{ include "discovery-platform.otelHeaders" (dict "headers" .Values.global.otel.headers) | quote }}
+            {{- end }}
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: {{ include "discovery-platform.resourceAttributes" (dict "context" . "component" "backend") | quote }}
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsGroup: 65532
+            runAsUser: 65532
+      terminationGracePeriodSeconds: 30
+{{- end -}}

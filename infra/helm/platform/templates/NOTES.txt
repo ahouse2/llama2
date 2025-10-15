@@ -1,7 +1,13 @@
-Thank you for deploying the Discovery Platform API.
+Thanks for deploying the Discovery Platform stack.
 
-Get the status of the release with:
-  kubectl --namespace {{ .Release.Namespace }} get pods -l {{ include "discovery-platform.selectorLabels" . | nindent 2 }}
+To inspect the rollout status:
+  kubectl --namespace {{ default .Release.Namespace .Values.namespace.name }} get pods -l app.kubernetes.io/instance={{ .Release.Name }}
 
-Port-forward locally with:
-  kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "discovery-platform.fullname" . }} 8080:{{ .Values.service.port }}
+Backend ingress endpoint:
+  kubectl --namespace {{ default .Release.Namespace .Values.namespace.name }} get ingress {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+
+Frontend ingress endpoint:
+  kubectl --namespace {{ default .Release.Namespace .Values.namespace.name }} get ingress {{ printf "%s-frontend" (include "discovery-platform.fullname" .) }}
+
+Port-forward backend locally:
+  kubectl --namespace {{ default .Release.Namespace .Values.namespace.name }} port-forward svc/{{ printf "%s-backend" (include "discovery-platform.fullname" .) }} 8080:{{ .Values.backend.service.port }}

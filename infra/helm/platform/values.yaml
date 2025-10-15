@@ -1,38 +1,182 @@
-image:
-  repository: ghcr.io/discovery/backend
-  tag: v0.1.0
-  pullPolicy: IfNotPresent
+namespace:
+  create: true
+  name: discovery
+  labels:
+    app.kubernetes.io/part-of: discovery-platform
+  annotations: {}
 
-service:
-  type: ClusterIP
-  port: 8080
+global:
+  otel:
+    endpoint: "http://otel-collector.observability.svc.cluster.local:4317"
+    headers: {}
+    resourceAttributes:
+      deployment.environment: production
+      service.namespace: discovery
+  prometheus:
+    scrape: true
+    interval: 30s
 
-resources:
-  requests:
-    cpu: 250m
-    memory: 512Mi
-  limits:
-    cpu: 500m
-    memory: 1Gi
-
-env:
-  - name: PREFECT_API_URL
-    value: "https://prefect.discovery.local/api"
-  - name: DATABASE_URL
-    valueFrom:
-      secretKeyRef:
-        name: discovery-database
-        key: url
-
-ingress:
+backend:
   enabled: true
-  className: nginx
-  hosts:
-    - host: api.discovery.local
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: discovery-tls
-      hosts:
-        - api.discovery.local
+  replicaCount: 2
+  image:
+    repository: ghcr.io/discovery/backend
+    tag: v0.1.0
+    pullPolicy: IfNotPresent
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+  podAnnotations: {}
+  env:
+    - name: PREFECT_API_URL
+      value: "https://prefect.discovery.local/api"
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: discovery-database
+          key: url
+  extraEnv: []
+  ports:
+    http: 8080
+  service:
+    type: ClusterIP
+    port: 8080
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: api.discovery.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: discovery-tls
+        hosts:
+          - api.discovery.local
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 65
+  telemetry:
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+      additionalLabels: {}
+      path: /metrics
+
+worker:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: ghcr.io/discovery/worker
+    tag: v0.1.0
+    pullPolicy: IfNotPresent
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+  podAnnotations: {}
+  env:
+    - name: PREFECT_API_URL
+      value: "https://prefect.discovery.local/api"
+    - name: PREFECT_WORK_QUEUE
+      value: discovery-default
+    - name: PREFECT_LOGGING_LEVEL
+      value: INFO
+  extraEnv: []
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 9464
+  resources:
+    requests:
+      cpu: 200m
+      memory: 384Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 60
+  telemetry:
+    serviceMonitor:
+      enabled: false
+      interval: 30s
+      additionalLabels: {}
+      path: /metrics
+
+frontend:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: ghcr.io/discovery/frontend
+    tag: v0.1.0
+    pullPolicy: IfNotPresent
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+  podAnnotations: {}
+  env: []
+  ports:
+    http: 4173
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: app.discovery.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: discovery-frontend-tls
+        hosts:
+          - app.discovery.local
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 60
+
+argocd:
+  enabled: true
+  namespace: argocd
+  project:
+    name: discovery-platform
+    description: "Discovery platform workloads"
+    sourceRepos:
+      - "https://github.com/example/discovery.git"
+    destinations:
+      - namespace: discovery
+        server: https://kubernetes.default.svc
+  applications:
+    - name: discovery-platform
+      repoURL: "https://github.com/example/discovery.git"
+      path: infra/helm/platform
+      targetRevision: main
+      valueFiles: []
+      destinationNamespace: discovery
+      sync:
+        prune: true
+        selfHeal: true

@@ -1,0 +1,18 @@
+{{- if .Values.backend.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "backend") | nindent 4 }}
+spec:
+  type: {{ .Values.backend.service.type }}
+  selector:
+    {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "backend") | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ .Values.backend.service.port }}
+      targetPort: http
+{{- end -}}

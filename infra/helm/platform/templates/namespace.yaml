@@ -1,0 +1,14 @@
+{{- if and .Values.namespace.create (ne .Values.namespace.name "") -}}
+{{- $base := dict "app.kubernetes.io/managed-by" "helm" "app.kubernetes.io/part-of" "discovery-platform" -}}
+{{- $labels := merge $base (default (dict) .Values.namespace.labels) -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace.name }}
+  labels:
+    {{- toYaml $labels | nindent 4 }}
+  {{- with .Values.namespace.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end -}}
