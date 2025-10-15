@@ -28,3 +28,10 @@
 - Documented the requirement for maintainers to capture both implemented work and forward-looking intentions so cross-functional collaborators inherit accurate context.
 
 **Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.
+### 2024-05-06 — Maintainer: gpt-5-codex
+- Authored `PROJECT_NOTES_2024-05-06.md` to capture phased remediation planning, decision branches, and validation checklist for resolving CI regressions.
+- Restored required `[tool.poetry]` metadata in `apps/backend/pyproject.toml` to satisfy Poetry package-mode validation while retaining existing `[project]` schema.
+- Removed the orphaned `llama_index` gitlink to prevent workflow submodule failures until a vetted upstream is reintroduced.
+- Verified backend manifest integrity via `poetry check`, acknowledging expected duplication warnings until the project standardizes on a single metadata source.
+
+**Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.
