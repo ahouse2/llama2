@@ -9,6 +9,7 @@
 - [x] Repaired FastAPI retrieval endpoints and regression smoke tests to import orchestration and retriever services, guarding against merge drift.
 - [x] Restored `[tool.poetry]` metadata for the backend service and removed the orphaned `llama_index` submodule to unblock CI package resolution (2024-05-06).
 - [x] Regenerated backend and integration Poetry lockfiles with Poetry 1.8.3 to keep `poetry export` + `uv` prefetch stable across the matrix (2025-10-15).
+- [x] Corrected uv wheel prefetch commands in CI to remove unsupported `--download-only` flags while preserving cache priming behavior (2025-10-16).
 
 ## Active Initiatives
 - [ ] Document and version configuration manifests for multi-agent orchestration (YAML specs, escalation chains, tool availability) with validation examples.
@@ -42,5 +43,12 @@
 - Regenerated `apps/backend/poetry.lock` and `tests/poetry.lock` with Poetry 1.8.3, resolving the `click` resolver conflict that blocked `poetry export` in the GitHub Actions matrix.
 - Verified `poetry export` + manifest checks succeed for backend and integration test projects, ensuring uv wheel prefetch steps complete across Linux/macOS/Windows.
 - Updated Completed Deliverables to summarize both the 2024-05-06 metadata/submodule fixes and the 2025-10-15 lock regeneration so future agents inherit cumulative context.
+
+**Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, ensure Completed Deliverables reflects both your change set and the immediately preceding round, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.
+### 2025-10-16 — Maintainer: gpt-5-codex
+- Authored `PROJECT_NOTES_2025-10-16.md` to map the uv prefetch remediation strategy, risks, and validation checklist.
+- Removed the unsupported `--download-only` flag from both uv pip install commands in `.github/workflows/ci.yml`, aligning the workflow with uv’s accepted CLI arguments while retaining cross-platform caching behavior.
+- Reviewed the updated workflow and documentation diffs to ensure no collateral changes, completing the validation checklist recorded in the project notes.
+- Extended Completed Deliverables to enumerate the 2025-10-15 lock regeneration alongside the 2025-10-16 workflow correction so maintainers see cumulative CI recovery steps at a glance.
 
 **Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, ensure Completed Deliverables reflects both your change set and the immediately preceding round, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.

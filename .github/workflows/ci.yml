@@ -51,8 +51,8 @@ jobs:
           mkdir -p "${{ runner.temp }}/uv-cache"
           poetry -C apps/backend export --without-hashes --format requirements.txt --output /tmp/backend-req.txt
           poetry -C tests export --without-hashes --format requirements.txt --output /tmp/tests-req.txt
-          uv pip install --python "$(which python)" --requirement /tmp/backend-req.txt --download-only
-          uv pip install --python "$(which python)" --requirement /tmp/tests-req.txt --download-only
+          uv pip install --python "$(which python)" --requirement /tmp/backend-req.txt
+          uv pip install --python "$(which python)" --requirement /tmp/tests-req.txt
         env:
           UV_CACHE_DIR: ${{ runner.temp }}/uv-cache
 
