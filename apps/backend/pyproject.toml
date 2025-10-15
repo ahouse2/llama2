@@ -58,6 +58,10 @@ tests = [
 ]
 
 [tool.poetry]
+name = "legal-discovery-backend"
+version = "0.1.0"
+description = "Lightweight intelligence services for the automated legal discovery platform"
+authors = ["Automated Architect"]
 packages = [
   { include = "app" }
 ]
