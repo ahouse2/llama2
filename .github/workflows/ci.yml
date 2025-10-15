@@ -120,6 +120,8 @@ jobs:
     permissions:
       contents: read
       security-events: write
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     strategy:
       fail-fast: false
       matrix:
@@ -161,16 +163,16 @@ jobs:
           output: trivy-${{ matrix.name }}.sarif
 
       - name: Snyk scan (${{ matrix.name }})
-        if: secrets.SNYK_TOKEN != ''
+        if: env.SNYK_TOKEN != ''
         uses: snyk/actions/docker@master
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
         with:
           image: ${{ matrix.image }}
           args: --file=${{ matrix.dockerfile }} --severity-threshold=high
 
       - name: Skip Snyk (token missing)
-        if: secrets.SNYK_TOKEN == ''
+        if: env.SNYK_TOKEN == ''
         run: echo "SNYK_TOKEN secret not configured; skipping Snyk container scan."
 
       - name: Generate SBOM (${{ matrix.name }})
