@@ -10,6 +10,7 @@
 - [x] Restored `[tool.poetry]` metadata for the backend service and removed the orphaned `llama_index` submodule to unblock CI package resolution (2024-05-06).
 - [x] Regenerated backend and integration Poetry lockfiles with Poetry 1.8.3 to keep `poetry export` + `uv` prefetch stable across the matrix (2025-10-15).
 - [x] Corrected uv wheel prefetch commands in CI to remove unsupported `--download-only` flags while preserving cache priming behavior (2025-10-16).
+- [x] Authored the ingestion overhaul master blueprint detailing loader integration, GPU OCR replacement, API triggers, and golden-path validation strategy (2025-10-17).
 
 ## Active Initiatives
 - [ ] Document and version configuration manifests for multi-agent orchestration (YAML specs, escalation chains, tool availability) with validation examples.
@@ -50,5 +51,11 @@
 - Removed the unsupported `--download-only` flag from both uv pip install commands in `.github/workflows/ci.yml`, aligning the workflow with uv’s accepted CLI arguments while retaining cross-platform caching behavior.
 - Reviewed the updated workflow and documentation diffs to ensure no collateral changes, completing the validation checklist recorded in the project notes.
 - Extended Completed Deliverables to enumerate the 2025-10-15 lock regeneration alongside the 2025-10-16 workflow correction so maintainers see cumulative CI recovery steps at a glance.
+
+**Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, ensure Completed Deliverables reflects both your change set and the immediately preceding round, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.
+### 2025-10-17 — Maintainer: gpt-5-codex
+- Authored `docs/ingestion_overhaul_plan.md` capturing a hierarchical implementation roadmap spanning LlamaIndex loader integration, Prefect orchestration, GPU-enhanced OCR, ingestion APIs, and golden-path testing to eliminate ambiguity before execution.
+- Updated Completed Deliverables to record the ingestion overhaul master blueprint, preserving prior accomplishments for historical continuity.
+- No code execution occurred; implementation is deferred until required dependencies, GPU build pipelines, and integration test scaffolds are provisioned per the blueprint.
 
 **Next maintainer directive:** After completing your work, append your own dated ledger entry detailing every modification, rationale, and pending follow-up, ensure Completed Deliverables reflects both your change set and the immediately preceding round, and end that entry by repeating this directive verbatim so the stewardship chain remains unbroken.
