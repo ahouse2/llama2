@@ -1,0 +1,24 @@
+{{- if and .Values.backend.enabled .Values.backend.autoscaling.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "backend") | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ printf "%s-backend" (include "discovery-platform.fullname" .) }}
+  minReplicas: {{ .Values.backend.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.backend.autoscaling.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.backend.autoscaling.targetCPUUtilizationPercentage }}
+{{- end -}}

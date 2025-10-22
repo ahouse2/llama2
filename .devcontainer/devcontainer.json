@@ -1,0 +1,48 @@
+{
+  "name": "llama2-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20",
+      "pnpm": "true"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "runArgs": [
+    "--gpus=${localEnv:DEVCONTAINER_GPU_MODE:none}"
+  ],
+  "containerEnv": {
+    "POETRY_VIRTUALENVS_CREATE": "false",
+    "UV_CACHE_DIR": "/workspaces/llama2/.cache/uv",
+    "PNPM_HOME": "/home/vscode/.local/share/pnpm",
+    "PATH": "/home/vscode/.local/share/pnpm:/home/vscode/.local/bin:${containerEnv:PATH}"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/secrets,target=${containerWorkspaceFolder}/.secrets,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "bash -lc './scripts/bootstrap_backend.sh && ./scripts/bootstrap_frontend.sh'",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "editor.formatOnSave": true,
+        "files.exclude": {
+          "**/__pycache__": true
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}

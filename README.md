@@ -1,47 +1,80 @@
-Automated Legal Discovery Platform (Enterprise-Grade Skeleton)
+# Discovery Intelligence Platform Workspace
 
-This repo contains a production-ready scaffold for an enterprise Automated Legal Discovery Platform per the TRD/PRP. It includes:
+This monorepo houses the automation, orchestration, and experience layers for the automated legal discovery platform. Each application is developed in isolation but wired together through a shared task runner, canonical documentation, and infrastructure as code.
 
-- Backend API (`FastAPI`) with modular services for ingestion, indexing, retrieval, and knowledge graph
-- Frontend (`React + Vite + TypeScript`) neon-styled chat UI, uploads, search, and document viewer
-- Infra (`docker-compose`) with Qdrant (vector DB), Neo4j (graph DB), MinIO (object storage), and Redis (jobs)
+## Workspace Layout
 
-Quick Start
+```
+.
+├── apps
+│   ├── backend      # FastAPI microservices managed with Poetry
+│   └── frontend     # React + Vite console styled with Tailwind CSS + Radix UI
+├── docs             # MkDocs (ops) + Docusaurus (product) documentation systems
+├── infra            # Terraform modules and Helm charts for platform provisioning
+├── tests            # Cross-application integration suites (Pytest + HTTPX)
+└── tools            # Repository automation, including structure validation
+```
 
-- Copy `.env.example` to `.env` and set keys
-- Start infra: `docker compose -f infra/docker-compose.yml up -d`
-- Backend (local): `cd apps/backend && python -m venv .venv && .venv/Scripts/Activate.ps1 && pip install -r requirements.txt && uvicorn app.main:app --reload`
-- Frontend (local): `cd apps/frontend && corepack enable && pnpm i && pnpm dev`
+Each workspace includes an in-depth README with stack notes, bootstrap commands, and contribution standards.
 
-Structure
+## Bootstrapping by Workspace
 
-- `apps/backend`: FastAPI app, service modules, and API routes
-- `apps/frontend`: Vite React app with chat, upload, search, and viewer
-- `infra/docker-compose.yml`: Dev stack (Qdrant, Neo4j, MinIO, Redis)
-- `storage/`: Local document storage (mounted volume)
+### Backend (`apps/backend`)
+```bash
+just backend-install
+just backend-test
+```
+Expose the API locally via `poetry run uvicorn app.main:app --reload` once dependencies are installed.
 
-Backend Overview
+### Frontend (`apps/frontend`)
+```bash
+just frontend-install
+just frontend-test
+just frontend-typecheck
+```
+Start the Vite dev server with `npm run dev`.
 
-- Endpoints: `/ingest`, `/search`, `/chat`, `/documents/{id}`, `/graph/entity/{id}`
-- Services: `IngestionService`, `IndexService` (vector), `RetrievalService` (RAG), `GraphService` (KG)
-- Pluggable providers via env (OpenAI, Qdrant, Neo4j, MinIO); graceful in-memory fallbacks
+### Integration Tests (`tests`)
+```bash
+just integration-install
+just integration-test
+```
 
-Frontend Overview
+### Documentation (`docs`)
+- MkDocs runbooks: `just docs-mkdocs-serve`
+- Docusaurus knowledge base: `just docs-docusaurus-start`
 
-- Neon-themed chat with citations that open the document viewer
-- Upload new evidence; auto-indexing feedback via toasts
-- Search panel with semantic results and metadata chips
+### Infrastructure (`infra`)
+```bash
+cd infra/terraform
+terraform init
+terraform plan -var-file=envs/dev/terraform.tfvars
+```
+Helm releases ship from `infra/helm/platform`:
+```bash
+helm upgrade --install discovery infra/helm/platform \
+  --namespace discovery --create-namespace \
+  --values infra/helm/platform/values-dev.yaml
+```
 
-Environment Variables
+## Automation via `just`
 
-- `OPENAI_API_KEY` (optional)
-- `QDRANT_URL`, `QDRANT_API_KEY` (optional)
-- `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (optional)
-- `MINIO_ENDPOINT`, `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`
-- `REDIS_URL` (optional)
+The root [`Justfile`](Justfile) orchestrates formatting, linting, type-checking, and tests across every workspace:
 
-Notes
+```bash
+just install-all        # Install backend, frontend, and integration dependencies
+just lint-all           # Ruff + ESLint coverage
+just typecheck-all      # mypy + TypeScript checks
+just format-check-all   # Black/Prettier/Ruff format verification
+just test-all           # Backend, frontend, and integration test suites
+just check-all          # Runs structure validation + all quality gates
+just ci                 # Installs dependencies then executes the full quality stack
+```
 
-- This is a robust scaffold with working stubs. Swap stub implementations with production providers incrementally.
-- See inline `TODO:` markers for suggested next steps.
+Run `just --list` to discover every available recipe, including workspace-specific format writers.
 
+## Continuous Integration Guardrails
+
+- [`tools/check_workspace_structure.py`](tools/check_workspace_structure.py) enforces the canonical directory layout and validates critical configuration (dependencies, README content, Terraform/Helm markers).
+- `just ci` mirrors the CI pipeline by running structure validation, linting, formatting checks, type-checking, and tests after installing dependencies.
+- Documentation and infrastructure directories are versioned to prevent drift between deployment assets and runtime services.

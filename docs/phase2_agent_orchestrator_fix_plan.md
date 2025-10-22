@@ -1,0 +1,29 @@
+# Phase 2 Agent Orchestrator Fix Plan
+
+- Purpose
+  - Guard `AgentOrchestrator` timeline serialization from import regressions and enforce executable async tests.
+    - Confirm `json` availability and expand test harness to capture future issues automatically.
+- Diagnostic Breakdown
+  - Inspect `apps/backend/app/services/agents.py`
+    - Identify dependencies invoked within `Agent.handle`.
+      - `retriever_service.search` for retrieval context.
+      - `timeline_service.summarize` with JSON serialization via `json.dumps`.
+    - Confirm top-level imports.
+      - Verify `json` remains imported; reintroduce if missing.
+- Remediation Strategy
+  - Confirm orchestrator module imports remain comprehensive.
+    - Validate `json` availability for timeline serialization.
+    - Leave existing import ordering intact if already satisfied.
+  - Test Harness Hardening
+    - Introduce `tests/conftest.py` to provide in-repo asyncio runner for `@pytest.mark.asyncio` tests.
+    - Ensure fixture argument filtering prevents unexpected keyword propagation.
+  - Re-run linting mentally.
+    - Ensure new pytest hook logic cleans up event loops and avoids resource leaks.
+- Verification Steps
+  - Execute `pytest` from `apps/backend` root to cover unit/integration tests.
+    - Confirms ingestion/retrieval/agent workflows unaffected.
+  - Perform targeted manual reasoning.
+    - Re-read `Agent.handle` to confirm `json.dumps` reference resolves.
+- Post-Verification Notes
+  - Update PR summary referencing correction to orchestration module.
+  - No database migrations required.

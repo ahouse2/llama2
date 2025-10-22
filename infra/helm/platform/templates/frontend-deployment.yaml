@@ -1,0 +1,67 @@
+{{- if .Values.frontend.enabled -}}
+{{- $ns := default .Release.Namespace .Values.namespace.name -}}
+{{- $sa := default (printf "%s-frontend" (include "discovery-platform.fullname" .)) .Values.frontend.serviceAccount.name -}}
+{{- $podAnnotations := merge (dict) (default (dict) .Values.frontend.podAnnotations) -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-frontend" (include "discovery-platform.fullname" .) }}
+  namespace: {{ $ns }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "frontend") | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "frontend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "discovery-platform.selectorLabels" (dict "context" . "component" "frontend") | nindent 8 }}
+      {{- if $podAnnotations }}
+      annotations:
+        {{- toYaml $podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ $sa }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.frontend.ports.http }}
+              name: http
+          env:
+            {{- with .Values.frontend.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            - name: FRONTEND_PORT
+              value: {{ printf "%d" .Values.frontend.ports.http | quote }}
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsGroup: 65532
+            runAsUser: 65532
+      terminationGracePeriodSeconds: 20
+{{- end -}}

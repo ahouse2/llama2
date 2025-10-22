@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: discovery-backend
+    honor_labels: true
+    metrics_path: /metrics
+    kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ["discovery"]
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: discovery-platform-backend
+      - source_labels: [__meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: http
+  - job_name: discovery-worker
+    honor_labels: true
+    metrics_path: /metrics
+    kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ["discovery"]
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: discovery-platform-worker
+      - source_labels: [__meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: http
+  - job_name: otel-collector
+    metrics_path: /
+    static_configs:
+      - targets:
+          - otel-collector.observability.svc.cluster.local:9464
+
+rule_files:
+  - rules/discovery-recording-rules.yaml

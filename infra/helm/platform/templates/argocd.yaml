@@ -1,0 +1,56 @@
+{{- if .Values.argocd.enabled -}}
+{{- $argocdNs := default "argocd" .Values.argocd.namespace -}}
+{{- $project := .Values.argocd.project -}}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ $project.name }}
+  namespace: {{ $argocdNs }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" . "component" "gitops") | nindent 4 }}
+spec:
+  description: {{ $project.description | quote }}
+  sourceRepos:
+    {{- toYaml $project.sourceRepos | nindent 4 }}
+  destinations:
+    {{- range $project.destinations }}
+    - namespace: {{ .namespace }}
+      server: {{ .server }}
+    {{- end }}
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+{{- range $index, $app := .Values.argocd.applications }}
+{{- $sync := default (dict "prune" true "selfHeal" true) $app.sync -}}
+{{- $targetNs := default (default $.Release.Namespace $.Values.namespace.name) $app.destinationNamespace -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $app.name }}
+  namespace: {{ $argocdNs }}
+  labels:
+    {{- include "discovery-platform.labels" (dict "context" $ "component" "gitops") | nindent 4 }}
+spec:
+  project: {{ $project.name }}
+  source:
+    repoURL: {{ $app.repoURL }}
+    path: {{ $app.path }}
+    targetRevision: {{ $app.targetRevision }}
+    {{- if $app.valueFiles }}
+    helm:
+      valueFiles:
+        {{- toYaml $app.valueFiles | nindent 8 }}
+    {{- end }}
+  destination:
+    namespace: {{ $targetNs }}
+    server: {{ (index $project.destinations 0).server }}
+  syncPolicy:
+    automated:
+      prune: {{ $sync.prune }}
+      selfHeal: {{ $sync.selfHeal }}
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+{{- end }}
+{{- end -}}

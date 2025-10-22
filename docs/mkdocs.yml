@@ -1,0 +1,21 @@
+site_name: Discovery Intelligence Playbooks
+site_url: https://example.com/docs
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Pipelines: architecture/pipelines.md
+  - Operations:
+      - Runbooks: operations/runbooks.md
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: teal
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
